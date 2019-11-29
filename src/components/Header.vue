@@ -83,7 +83,7 @@
         class="text-center"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>ToothBook</strong>
+        {{ new Date().getFullYear() }} — <strong>PN SELECTION</strong>
       </v-col>
     </v-footer>
 </span>

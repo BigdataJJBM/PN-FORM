@@ -88,6 +88,13 @@ app.post('/api/appointment/create', (req, res) => {
     });
 });
 
+app.get('/api/appointment/getDone', (req, res) => {
+    Appointment.find({ status: "Pass" }).exec((err, data) => {
+        if (err) return res.status(404).send('Error while getting list of appointment!');
+        return res.send({ data })
+    })
+})
+
 app.post('/api/appointment/update/:id', (req, res) => {
     Appointment.findByIdAndUpdate(req.params.id, req.body.data, { new: true }, (err, data) => {
         if (err) return res.status(404).send({ error: err.message });
@@ -156,14 +163,6 @@ app.get('/api/hours/get', (req, res) => {
     })
 })
 
-// app.post('/api/hours/update/:id', (req, res) => {
-//     console.log(req.body)
-//     TotalHours.findByIdAndUpdate(req.params.id, req.body.data, { new: true }, (err, data) => {
-//         if (err) return res.status(404).send({ error: err.message });
-//         return res.send({ message: 'Service is successfully updated', data })
-
-//     })
-// })
 
 app.post('/api/hours/update', (req, res) => {
     console.log(req.body)
@@ -173,18 +172,6 @@ app.post('/api/hours/update', (req, res) => {
     })
 })
 
-// app.get('/api/hours/getOne', (req, res) => {
-//     TotalHours.findOne({hoursRequested:req.body} , (err, data) => {
-//         console.log(data)
-//         if (err) return res.status(404).send({ error: err.message });
-//         return res.send({ message: 'Service is successfully updated', data })
-//     })
-// })
-
-//login
-// app.post('/api/admin/login', (req, res) => {
-//     login(req.body, res)
-// })
 app.post("/api/admin/login", (req, res) => {
     console.log(req.body);
     login.login(req, res);

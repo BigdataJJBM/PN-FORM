@@ -179,13 +179,17 @@ export default {
       if (item.status == "For Examination") {
         // client.check = false;
         item.action = "Pass";
-        item.status = "Social Investigation...";
-      } else if (item.action == "Pass") {
+        item.status = "Social Investigaion...";
+      } else if (item.status == "Social Investigaion...") {
+        // client.check = true;
+        item.action = "Pass";
+        item.status ="Pass"
+      }else if (item.status == "Pass") {
         // client.check = true;
         item.status = "Pass";
-        item.action="Pass";
+        item.action="Pass"
       }
-      const data = { status: client.status, check: client.check };
+      const data = { status: client.status, check: client.check, action: client.action };
       updateAppointment(data, client._id)
         .then(data => {
           this.$emit("updateService", data.data);

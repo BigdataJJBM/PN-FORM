@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getAppointments, deleteAppointment } from "../helpers/actions";
+import { getAppmtDone, deleteAppointment } from "../helpers/actions";
 
 export default {
   name: "Pass",
@@ -32,12 +32,12 @@ export default {
           value: "lastname"
         },
         {
-          text: "Email Address",
-          value: "email"
+          text: "Municipality",
+          value: "municipality"
         },
         {
-          text: "Contact Number",
-          value: "contact"
+          text: "Gender",
+          value: "gender"
         },
         {
           text: "Actions",
@@ -60,13 +60,13 @@ export default {
     },
 
     retrieveAppointments() {
-      getAppointments()
+      getAppmtDone()
         .then(data => ((this.clients = data.data), console.log(data.data)))
         .catch(err => alert(err));
     }
   },
   mounted() {
-    getAppointments()
+   getAppmtDone()
       .then(data => ((this.clients = data.data), console.log(data.data)))
       .catch(err => alert(err));
   }

@@ -9,31 +9,6 @@
       <h3>Please provide the following information:</h3>
     </v-sheet>
     <v-form ref="form" v-model="valid" :lazy-validation="lazy">
-      <!-- <v-select
-        v-model="selectService"
-        :items="services"
-        item-text="name"
-        :rules="[v => !!v || 'Item is required']"
-        label="Dental Services"
-        sort-by="name"
-        @change="disable = false, modal= true"
-        required
-      ></v-select> -->
-      <!-- <v-menu
-          v-model="menu"
-          :close-on-content-click="false"
-          max-width="290"
-      >-->
-      <!-- <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent width="290px">
-        <template v-slot:activator="{ on }">
-          <v-text-field v-model="date" label="When" readonly v-on="on" :disabled="disable"></v-text-field>
-        </template>
-        <v-date-picker v-model="date" scrollable :min="currentDate" @change="selectDate">
-          <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-          <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-        </v-date-picker>
-      </v-dialog> -->
       <h3 class="mb-2">Personal Information</h3>
       <v-row>
         <v-col cols="12" md="6">
@@ -120,7 +95,6 @@ export default {
       if (this.$refs.form.validate()) {
         this.disableSubmit = true;
         this.submitRequest();
-      
         this.firstname = this.lastname = this.contact = this.email = this.note = this.municipality= this.gender = null;
         this.checkbox = false;
         this.snackbar = true;

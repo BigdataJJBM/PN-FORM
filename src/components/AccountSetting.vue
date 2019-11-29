@@ -54,7 +54,7 @@
          </v-list-item>
         </v-list>
 
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider>
         <v-card-title class="headline">Operation Settings</v-card-title>
         <v-list three-line subheader>
           <v-list-item>
@@ -64,8 +64,8 @@
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
-          <v-list-item-content>
-        <v-row justify="center">
+          <v-list-item-content> -->
+        <!-- <v-row justify="center">
     <v-dialog v-model="dialog2" persistent max-width="400px">
       <template v-slot:activator="{ on }">
         <v-btn color="light-blue darken-2" v-on="on" absolute right text>Set Hours</v-btn>
@@ -95,23 +95,24 @@
             </v-card-actions>
           </v-card>
     </v-dialog>
-  </v-row>
-         </v-list-item-content>
+  </v-row> -->
+         <!-- </v-list-item-content>
          </v-list-item>
-        </v-list>
+        </v-list> -->
         
       </v-card>
 </template>
 
 <script>
-import { updateAccount, updateHours, getHours } from "../helpers/actions";
+// import { updateAccount, updateHours, getHours } from "../helpers/actions";
+import { updateAccount } from "../helpers/actions";
 export default {
   name: "accountSettings",
   data() {
     return {
       username: "",
       password: "",
-      hours: 0,
+      // hours: 0,
       dialog1: false,
       dialog2: false,
       notifications: false,
@@ -139,16 +140,16 @@ export default {
         .catch(err => alert(err.error));
     },
 
-    updateTotalHours() {
-      const data = { totalHours: this.hours };
-      updateHours(data)
-        .then(data => {
-          this.$emit("updateHours", data.data);
-          console.log(data.data);
-          this.dialog2 = false;
-        })
-        .catch(err => alert(err.error));
-    },
+    // updateTotalHours() {
+    //   const data = { totalHours: this.hours };
+    //   updateHours(data)
+    //     .then(data => {
+    //       this.$emit("updateHours", data.data);
+    //       console.log(data.data);
+    //       this.dialog2 = false;
+    //     })
+    //     .catch(err => alert(err.error));
+    // },
     close() {
       this.dialog2 = false;
       console.log(this.data);
@@ -156,9 +157,9 @@ export default {
     }
   },
   mounted() {
-    getHours()
-      .then(data => (this.hours = this.data = data.data[0].totalHours))
-      .catch(err => alert(err));
+    // getHours()
+    //   .then(data => (this.hours = this.data = data.data[0].totalHours))
+    //   .catch(err => alert(err));
   }
 };
 </script>
