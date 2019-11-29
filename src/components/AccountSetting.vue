@@ -1,15 +1,9 @@
 <template>
-  <!-- <v-row justify="center"> -->
-    <!-- <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition"> -->
-      <!-- <template v-slot:activator="{ on }">
-        <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
-      </template> -->
       <v-card class="ma-4 pa-5" height="100%">
         <v-card-title class="headline">
           <v-icon large class="mr-2">mdi-account</v-icon>
           Account Settings</v-card-title>
         <v-list three-line subheader>
-          <!-- <v-subheader>User Controls</v-subheader> -->
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Username</v-list-item-title>
@@ -32,7 +26,7 @@
                   <v-card>
                 <v-card-title class="black--text">
                     <v-list-item-avatar tile right size="62">
-            <img src="../assets/toothbook-logo5.png" />
+            <img src="../assets/pn-logo.png" />
           </v-list-item-avatar>
                 <span class="headline">Admin Account</span>
                 </v-card-title>
@@ -63,7 +57,6 @@
         <v-divider></v-divider>
         <v-card-title class="headline">Operation Settings</v-card-title>
         <v-list three-line subheader>
-          <!-- <v-subheader>Operational Controls</v-subheader> -->
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Total Working Minutes Per Day</v-list-item-title>
@@ -80,7 +73,7 @@
                         <v-card>
                 <v-card-title class="black--text">
                     <v-list-item-avatar tile right size="62">
-            <img src="../assets/toothbook-logo5.png" />
+            <img src="../assets/pn-logo.png" />
           </v-list-item-avatar>
                 <span class="headline">Total Working Minutes</span>
                 </v-card-title>
@@ -152,7 +145,6 @@ export default {
         .then(data => {
           this.$emit("updateHours", data.data);
           console.log(data.data);
-          // this.hours = data.data[0].totalHours
           this.dialog2 = false;
         })
         .catch(err => alert(err.error));

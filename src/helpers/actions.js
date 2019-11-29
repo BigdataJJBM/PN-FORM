@@ -50,12 +50,9 @@ export function createAppointment(data) {
             contact: data.contact,
             municipality:data.municipality,
             gender: data.gender,
-            // date: data.date,
-            // reason: data.reason,
             note: data.note,
             status: data.status,
             action: data.action,
-            // dateOfSubmit: data.dateOfSubmit
         })
         .then(response => {
             return response.data
@@ -136,13 +133,6 @@ export function updateHours(data) {
         .catch(err => Promise.reject(err.message))
 }
 
-// export function getDate(data) {
-//     return axios.get(`${BASE_URL}/api/hours/getOne/`, { data })
-//         .then(response => {
-//             return response.data
-//         })
-//         .catch(err => Promise.reject(err.message))
-// }
 export function login(data) {
     return axios.post(`${BASE_URL}/api/admin/login`, {
             username: data.username,

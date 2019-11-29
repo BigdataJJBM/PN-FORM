@@ -76,16 +76,13 @@
 // import Swal from "sweetalert2";
 import {
   createAppointment,
-  // getServices,
-  // getHours,
-  // updateHours
 } from "../helpers/actions";
 
 export default {
-  name: "clientform",
+  name: "RegisterForm",
   data: () => ({
-    status: "On Queue",
-    action: "Process",
+    status: "For Examination",
+    action: "For SI",
     valid: true,
     firstname: "",
     lastname: "",
@@ -114,66 +111,21 @@ export default {
     dataHours: [],
     disable: true
   }),
-  // computed: {
-  //   computedDateFormattedMomentjs() {
-  //     return this.date ? moment(this.date).format("MMMM DD YYYY") : "";
-  //   }
-  // },
+
 
   methods: {
-    // selectDate() {
-    //   const list = this.dataHours[0].hoursRequested; //list of date being booked by clients
-    //   const index = this.services.map(e => e.name).indexOf(this.selectService);
-    //   const time = this.services[index].time;
-    //   const date = `${this.date}T00:00:00.000Z`;
-    //   console.log(list);
-
-    //   if (!list.some(item => item.date == date)) {
-    //     this.dataHours[0].hoursRequested.push({ date: date, minutes: time });
-    //   } else {
-    //     const indexDate = list.map(e => e.date).indexOf(date);
-    //     const totalTime = list[indexDate].minutes + time;
-    //     if (totalTime > this.dataHours[0].totalHours) {
-    //       this.alertDisplay();
-    //       this.date = this.currentDate;
-    //     } else {
-    //       list[indexDate].minutes += time;
-    //     }
-    //   }
-    //   console.log(list);
-    // },
-
-    // submitHours() {
-    //   console.log(this.dataHours[0]);
-    //   updateHours(this.dataHours[0])
-    //     .then(data => {
-    //       this.$emit("updateHours", data.data);
-    //       // console.log(data.data)
-    //     })
-    //     .catch(err => alert(err.error));
-    // },
-    // alertDisplay() {
-    //   // this.$swal('Heading', 'this is a Heading', 'OK');
-    //   Swal.fire({
-    //     type: "error",
-    //     title: "Oops...",
-    //     text: "The date is not available anymore!"
-    //     // footer: '<a href>Why do I have this issue?</a>'
-    //   });
-    // },
 
     validate() {
-      // this.submitRequest()
+    
       if (this.$refs.form.validate()) {
         this.disableSubmit = true;
         this.submitRequest();
-        // this.submitHours();
+      
         this.firstname = this.lastname = this.contact = this.email = this.note = this.municipality= this.gender = null;
         this.checkbox = false;
         this.snackbar = true;
         this.$refs.form.reset();
-        // this.submitRequest();
-        // this.firstname = this.lastname = this.contact = this.email = this.note = this.selectService = null;
+
       }
     },
 
@@ -188,12 +140,10 @@ export default {
         contact: this.contact,
         municipality:this.municipality,
         gender:this.gender,
-        // date: this.date,
-        // reason: this.selectService,
         note: this.note,
         status: this.status,
         action: this.action,
-        // dateOfSubmit: moment().format("MMMM Do YYYY, h:mm:ss a")
+
       };
       createAppointment(data)
         .then(data => {
@@ -203,12 +153,6 @@ export default {
     }
   },
   mounted() {
-    // getServices()
-    //   .then(data => (this.services = data.data))
-    //   .catch(err => alert(err));
-    // getHours()
-    //   .then(data => (this.dataHours = data.data))
-    //   .catch(err => alert(err));
   }
 };
 </script>

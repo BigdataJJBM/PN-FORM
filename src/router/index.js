@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Admin from '../views/Admin.vue'
-import Services from '../components/Schedule.vue'
-import ClientForm from '../components/ClientForm.vue'
+import RegisterForm from '../components/Registration.vue'
 import Login from '../views/Login.vue'
-import Client from '../views/Clients.vue'
+import Pass from '../views/StudentPass.vue'
 import store from "../store"
 import AccountSettings from '../components/AccountSetting.vue';
-
-// import { isNullOrUndefined } from 'util'
 
 Vue.use(VueRouter)
 
@@ -50,21 +47,9 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/services',
-            name: 'services',
-            component: Services,
-            beforeEnter: (to, from, next) => {
-                if (store.state.authenticated == false) {
-                    next("/login");
-                } else {
-                    next();
-                }
-            }
-        },
-        {
-            path: '/clients',
-            name: 'Clients',
-            component: Client,
+            path: '/students',
+            name: 'Pass',
+            component: Pass,
             beforeEnter: (to, from, next) => {
                 if (store.state.authenticated == false) {
                     next("/login");
@@ -86,16 +71,9 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/clients-form',
-            name: 'ClientsForm',
-            component: ClientForm,
-            // beforeEnter: (to, from, next) => {
-            //     if (store.state.authenticated == false) {
-            //         next("/login");
-            //     } else {
-            //         next();
-            //     }
-            // }
+            path: '/register-form',
+            name: 'RegisterForm',
+            component: RegisterForm,
         },
         {
             path: "*",
@@ -105,21 +83,6 @@ const router = new VueRouter({
         }
     ]
 })
-// router.beforeEach((to, from, next) => {
-//     if (!to.meta.tokenRequired) {
-//         if (!isNullOrUndefined(localStorage.getItem("isAuthenticated"))) {
-//             next("/login");
-//         } else {
-//             next();
-//         }
-//     } else {
-//         if (isNullOrUndefined(localStorage.getItem("isAuthenticated"))) {
-//             next("/");
-//         } else {
-//             next();
-//         }
-//     }
-// });
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(route => route.meta.requiresAuth)) {

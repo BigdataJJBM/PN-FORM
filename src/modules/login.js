@@ -46,18 +46,6 @@ module.exports.deleteuser = (req, res) => {
             }
         })
     }
-    //fake login
-    // router.post('/login', function(req, res) {
-    //     var data = req.body
-    //     var acc_token = jwt.sign(data , "token1234", { expiresIn: "12h" })
-    //     res.send({
-    //         status: true,
-    //         auth: true,
-    //         user: data,
-    //         token: acc_token,
-    //         sms: "success"
-    //     })
-    // })
 module.exports.login = (req, res) => {
     var username = req.body.username
     var password = req.body.password

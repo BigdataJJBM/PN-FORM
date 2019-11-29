@@ -17,7 +17,7 @@
 import { getAppointments, deleteAppointment } from "../helpers/actions";
 
 export default {
-  name: "Clients",
+  name: "Pass",
   data() {
     return {
       search: "",

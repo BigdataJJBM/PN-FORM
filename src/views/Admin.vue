@@ -32,14 +32,6 @@
       </v-menu>
     </template>
     <template v-slot:item.status="{ item }">
-      <!-- <v-checkbox
-        class="black--text"
-        v-model="item.check"
-        color="success"
-        hide-details
-        :label="item.status"
-        @change="check(item)"
-      />-->
       <span>{{item.status}}</span>
     </template>
 
@@ -51,7 +43,7 @@
         <v-card class="pa-4">
           <v-card-title class="black--text">
             <v-list-item-avatar tile right size="62">
-              <img src="../assets/toothbook-logo5.png" />
+              <img src="../assets/pn-logo.png" />
             </v-list-item-avatar>
             <span class="headline">Client's Details</span>
           </v-card-title>
@@ -89,7 +81,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <!-- <td :colspan="headers.length">{{item.note}}</td> -->
     </template>
     <template v-slot:item.date="{ item }">
       <span>{{item.date.substr(0, 10)}}</span>
@@ -125,15 +116,6 @@ export default {
       dialog: false,
       actions: [{ title: "Cancel" }, { title: "Delete" }],
       headers: [
-        // {
-        //   text: "Date of Reservation",
-        //   align: "left",
-        //   value: "date"
-        // },
-        // {
-        //   text: "Date of Submission",
-        //   value: "dateOfSubmit"
-        // },
         {
           text: "Firstname",
           align: "left",
@@ -152,8 +134,6 @@ export default {
           text: "Gender",
           value: "gender"
         },
-        // { text: "Email Address", value: "email" },
-        // { text: "Contact Number", value: "contact" },
         { text: "Comment", value: "status", sortable: false },
         { text: "Actions", value: "action", sortable: false },
         { text: "", value: "info" }
@@ -196,13 +176,14 @@ export default {
       console.log(item);
       const index = this.clients.indexOf(item);
       const client = this.clients[index];
-      if (item.status == "On Queue") {
+      if (item.status == "For Examination") {
         // client.check = false;
-        item.action = "Done";
-        item.status = "Processing...";
-      } else if (item.action == "Done") {
+        item.action = "Pass";
+        item.status = "Social Investigation...";
+      } else if (item.action == "Pass") {
         // client.check = true;
-        item.status = "Done";
+        item.status = "Pass";
+        item.action="Pass";
       }
       const data = { status: client.status, check: client.check };
       updateAppointment(data, client._id)

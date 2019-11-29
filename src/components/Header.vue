@@ -96,8 +96,7 @@ export default {
     group: null,
     items: [
       { icon: "mdi-view-dashboard", title: "Dashboard", link: "/admin" },
-      // { icon: "mdi-timetable", title: "Services", link: "/services" },
-      { icon: "mdi-account-multiple", title: "List of Passers", link: "/clients" },
+      { icon: "mdi-account-multiple", title: "List of Passers", link: "/students" },
       { icon: "mdi-settings", title: "Settings", link: "/account-settings" }
     ]
   }),

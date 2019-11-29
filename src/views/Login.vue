@@ -95,10 +95,5 @@ h2 {
   color: black;
 }
 
-/* #back {
-  background-image: url(../assets/background.jpg);
-  background-size: cover;
-
-} */
 
 </style>
