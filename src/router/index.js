@@ -6,7 +6,6 @@ import Login from '../views/Login.vue'
 import Pass from '../views/StudentPass.vue'
 import store from "../store"
 import AccountSettings from '../components/AccountSetting.vue';
-
 Vue.use(VueRouter)
 
 

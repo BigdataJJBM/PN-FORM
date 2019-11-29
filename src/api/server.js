@@ -8,13 +8,13 @@ const bodyParser = require('body-parser');
 const Service = require('./Services');
 const Appointment = require('./Appointment');
 const AdminAccnt = require('./AdminAccount')
-const TotalHours = require('./TotalHours')
+
 
 //modules
 const login = require('../modules/login')
 
 //database - mongoose
-mongoose.connect('mongodb://localhost:27017/DbToothbook', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/PN_registration', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.set('useFindAndModify', false);
@@ -73,14 +73,13 @@ app.post('/api/appointment/create', (req, res) => {
         lastname: req.body.lastname,
         email: req.body.email,
         contact: req.body.contact,
-        date: req.body.date,
         reason: req.body.reason,
         note: req.body.note,
         municipality:req.body.municipality,
         gender:req.body.gender,
         status: req.body.status,
         action: req.body.action,
-        dateOfSubmit: req.body.dateOfSubmit
+    
     });
     data.save((err) => {
         if (err) return res.status(404).send({ error: err.message });
