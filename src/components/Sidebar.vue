@@ -41,10 +41,10 @@
 
 <script>
 export default {
+  name:'sidebar',
   data: () => ({
     items: [
       { icon: "mdi-view-dashboard", title: "Dashboard", link: "/admin" },
-      { icon: "mdi-timetable", title: "Services", link: "/services" },
       { icon: "mdi-account-multiple", title: "Pass", link: "/pass" },
       { icon: "mdi-account", title: "Account", link: "/account" }
     ]

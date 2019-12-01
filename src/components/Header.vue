@@ -97,6 +97,7 @@ export default {
     items: [
       { icon: "mdi-view-dashboard", title: "Dashboard", link: "/admin" },
       { icon: "mdi-account-multiple", title: "List of Passers", link: "/students" },
+      { icon: "mdi-account-multiple", title: "Statistics", link: "/statistics" },
       { icon: "mdi-settings", title: "Settings", link: "/account-settings" }
     ]
   }),

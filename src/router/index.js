@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Pass from '../views/StudentPass.vue'
 import store from "../store"
 import AccountSettings from '../components/AccountSetting.vue';
+import Static from "../components/Statistics.vue"
 Vue.use(VueRouter)
 
 
@@ -37,6 +38,18 @@ const router = new VueRouter({
             path: '/admin',
             name: 'Dashboard',
             component: Admin,
+            beforeEnter: (to, from, next) => {
+                if (store.state.authenticated == false) {
+                    next("/login");
+                } else {
+                    next();
+                }
+            }
+        },
+        {
+            path: '/statistics',
+            name: 'Statistics',
+            component: Static,
             beforeEnter: (to, from, next) => {
                 if (store.state.authenticated == false) {
                     next("/login");

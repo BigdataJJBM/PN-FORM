@@ -52,8 +52,7 @@
 </template>
 
 <script>
-// import moment from "moment";
-// import Swal from "sweetalert2";
+
 import {
   createAppointment,
 } from "../helpers/actions";

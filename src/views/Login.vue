@@ -46,7 +46,9 @@
                 clearable
                 color="indigo"
                 prepend-icon="mdi-lock"
-                type="password"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showPassword = !showPassword"
+                :type="showPassword ? 'text' : 'password'" 
               />
             </v-form>
           </v-card-text>
@@ -72,6 +74,7 @@ export default {
   name: "btnLogin",
   data() {
     return {
+      showPassword: false,
       username: "",
       password: "",
     };
