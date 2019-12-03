@@ -68,9 +68,46 @@ app.get('/api/appointment/list', (req, res) => {
 app.get('/api/appointment/byLocation',(req,res)=>{
     
     Appointment.aggregate([
+            { "$match": { "status": "Pass" } },
             {
                 $group: {
                     _id: "$municipality",
+                    count: {
+                        $sum: 1
+                    }
+                }
+            },
+            { "$sort": { "_id": 1 } },
+            {  "$group": {
+                "_id": null,
+                "counts": {
+                    "$push": {
+                        "k": "$_id",
+                        "v": "$count"
+                    }
+                }
+            } },
+            { "$replaceRoot": {
+                "newRoot": { "$arrayToObject": "$counts" }
+            } }  
+    
+        ], function (err, result) {
+            if (err) {
+                next(err);
+            } else {
+    
+                res.json(result);
+            }
+        });
+    
+})
+app.get('/api/appointment/byGender',(req,res)=>{
+    
+    Appointment.aggregate([
+            { "$match": { "status": "Pass" } },
+            {
+                $group: {
+                    _id: "$gender",
                     count: {
                         $sum: 1
                     }

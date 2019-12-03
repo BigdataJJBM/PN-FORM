@@ -1,5 +1,13 @@
 <template>
-     <apexchart width="380" type="donut" :options="chartOptions" :series="series" labelField="name"></apexchart>  
+<div>
+  <apexchart width="380" type="donut" :options="chartOptions" :series="series" labelField="name"></apexchart>
+</div>
+<div>
+   <apexchart ></apexchart> 
+</div>
+         
+     
+
 </template>
 <script>
 import Vue from 'vue'
@@ -8,7 +16,7 @@ import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
 
 Vue.component('apexchart', VueApexCharts)
-import  {getByLocation} from '../helpers/actions'
+import  {getByLocation,getByGender} from '../helpers/actions'
 export default {
     data: function() {
     return {
@@ -53,6 +61,20 @@ export default {
   },
    mounted() {
      getByLocation()
+      .then(data => {
+        console.log(JSON.stringify(data[0]))
+        for (var key in data[0]) {
+
+    if (data[0].hasOwnProperty(key)) {           
+        console.log("this is the key "+key);
+        this.chartOptions.labels.push(key);
+        this.series.push(data[0][key])
+    }
+}
+        })
+      .catch(err => alert(err));
+
+       getByGender()
       .then(data => {
         console.log(JSON.stringify(data[0]))
         for (var key in data[0]) {
