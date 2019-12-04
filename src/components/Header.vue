@@ -10,14 +10,10 @@
       <v-toolbar-title>PASSERELLES NUMERIQUES SELECTION</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-
-
-
         <v-btn @click="logout()" icon>
         <v-icon>mdi-logout</v-icon>
       </v-btn>
             <v-hover v-slot:default="{ hover }">
-
         <strong>Logout</strong>
       </v-hover>
      
@@ -68,9 +64,6 @@
       class="font-weight-medium"
       inset app
     >
-
-
-
     </v-footer>
     </v-navigation-drawer>
     <v-footer
@@ -97,7 +90,8 @@ export default {
     items: [
       { icon: "mdi-view-dashboard", title: "Dashboard", link: "/admin" },
       { icon: "mdi-account-multiple", title: "List of Passers", link: "/students" },
-      { icon: "mdi-account-multiple", title: "Statistics", link: "/statistics" },
+      { icon: "mdi-poll", title: "Municipality", link: "/municipality" },
+       { icon: "mdi-equalizer", title: "Gender", link: "/gender" },
       { icon: "mdi-settings", title: "Settings", link: "/account-settings" }
     ]
   }),

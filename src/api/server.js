@@ -5,8 +5,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 //models
-const Service = require('./Services');
-const Appointment = require('./Appointment');
+// const Service = require('./Services');
+const Applicant = require('./Applicant');
 const AdminAccnt = require('./AdminAccount')
 
 
@@ -23,55 +23,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-//Services - Admin side
-app.get('/api/service/list', (req, res) => {
-    Service.find({}, (err, data) => {
-        if (err) {
-            return res.status(404).send('Error while getting list of services!');
-        }
+
+
+// Applicant
+app.get('/api/applicant/list', (req, res) => {
+    Applicant.find({}).exec((err, data) => {
+        if (err) return res.status(404).send('Error while getting list of applicant!');
         return res.send({ data })
     })
 })
-
-app.post('/api/service/create', (req, res) => {
-    console.log(req.body)
-    const data = new Service({ name: req.body.name, time: req.body.time });
-    data.save((err) => {
-        if (err) return res.status(404).send({ error: err.message });
-        return res.send({ data });
-    });
-});
-
-app.post('/api/service/update/:id', (req, res) => {
-    console.log(req.body)
-    Service.findByIdAndUpdate(req.params.id, req.body.data, { new: true }, (err, data) => {
-        if (err) return res.status(404).send({ error: err.message });
-        return res.send({ message: 'Service is successfully updated', data })
-
-    })
-})
-
-app.post('/api/service/delete/:id', (req, res) => {
-    Service.findByIdAndRemove(req.params.id, (err, data) => {
-        if (err) return res.status(404).send({ error: err.message });
-        return res.send({ message: 'Service is successfully deleted!', data })
-    })
-})
-
-// Appointment
-app.get('/api/appointment/list', (req, res) => {
-    Appointment.find({}).exec((err, data) => {
-        if (err) return res.status(404).send('Error while getting list of appointment!');
-        return res.send({ data })
-    })
-})
-app.get('/api/appointment/byLocation',(req,res)=>{
+app.get('/api/applicant/byLocation',(req,res)=>{
     
-    Appointment.aggregate([
-            { "$match": { "status": "Pass" } },
+    Applicant.aggregate([
+            {$unwind: "$address"},
+            { "$match": { "status": "Pass"} },
             {
                 $group: {
-                    _id: "$municipality",
+                    _id: "$address.municipality",
                     count: {
                         $sum: 1
                     }
@@ -101,9 +69,8 @@ app.get('/api/appointment/byLocation',(req,res)=>{
         });
     
 })
-app.get('/api/appointment/byGender',(req,res)=>{
-    
-    Appointment.aggregate([
+app.get('/api/applicant/byGender',(req,res)=>{
+    Applicant.aggregate([
             { "$match": { "status": "Pass" } },
             {
                 $group: {
@@ -137,17 +104,24 @@ app.get('/api/appointment/byGender',(req,res)=>{
         });
     
 })
-app.post('/api/appointment/create', (req, res) => {
+app.post('/api/applicant/create', (req, res) => {
     console.log(req.body)
-    const data = new Appointment({
+    const data = new Applicant({
         firstname: req.body.firstname,
+        middlename:req.body.middlename,
         lastname: req.body.lastname,
         email: req.body.email,
         contact: req.body.contact,
         reason: req.body.reason,
         note: req.body.note,
-        municipality:req.body.municipality,
+        address:{
+        province:req.body.address.province,
+        municipality:req.body.address.municipality,
+        barangay:req.body.address.barangay,
+        },
+        familyIncome:req.body.familyIncome,
         gender:req.body.gender,
+        age:req.body.age,
         status: req.body.status,
         action: req.body.action,
     
@@ -158,22 +132,22 @@ app.post('/api/appointment/create', (req, res) => {
     });
 });
 
-app.get('/api/appointment/getDone', (req, res) => {
-    Appointment.find({ status: "Pass" }).exec((err, data) => {
-        if (err) return res.status(404).send('Error while getting list of appointment!');
+app.get('/api/applicant/getDone', (req, res) => {
+    Applicant.find({ status: "Pass" }).exec((err, data) => {
+        if (err) return res.status(404).send('Error while getting list of applicant!');
         return res.send({ data })
     })
 })
 
-app.post('/api/appointment/update/:id', (req, res) => {
-    Appointment.findByIdAndUpdate(req.params.id, req.body.data, { new: true }, (err, data) => {
+app.post('/api/applicant/update/:id', (req, res) => {
+    Applicant.findByIdAndUpdate(req.params.id, req.body.data, { new: true }, (err, data) => {
         if (err) return res.status(404).send({ error: err.message });
         return res.send({ message: 'Service is successfully updated', data })
     })
 })
 
-app.post('/api/appointment/delete/:id', (req, res) => {
-    Appointment.findByIdAndRemove(req.params.id, (err, data) => {
+app.post('/api/applicant/delete/:id', (req, res) => {
+    Applicant.findByIdAndRemove(req.params.id, (err, data) => {
         if (err) return res.status(404).send({ error: err.message });
         return res.send({ message: 'Service is successfully deleted!', data })
     })
@@ -214,46 +188,8 @@ app.post('/api/account/delete/:id', (req, res) => {
     })
 })
 
-//Hours
-app.post('/api/hours/add', (req, res) => {
-    const data = new TotalHours({ totalHours: req.body.totalHours, hoursRequested: req.body.hoursRequested });
-    data.save((err) => {
-        if (err) return res.status(404).send({ error: err.message });
-        return res.send({ data });
-    })
-})
-
-app.get('/api/hours/get', (req, res) => {
-    TotalHours.find({}, (err, data) => {
-        console.log(data)
-        if (err) {
-            return res.status(404).send('Error while getting list of services!');
-        }
-        return res.send({ data })
-    })
-})
 
 
-app.post('/api/hours/update', (req, res) => {
-    console.log(req.body)
-    TotalHours.findOneAndUpdate({}, req.body.data, { upsert: true, new: true, setDefaultsOnInsert: true }, (err, data) => {
-        if (err) return res.status(404).send({ error: err.message });
-        return res.send({ message: 'Service is successfully updated', data })
-    })
-})
-
-app.post("/api/admin/login", (req, res) => {
-    console.log(req.body);
-    login.login(req, res);
-});
-
-app.get("/api/admin/get", (req, res) => {
-    login.getuser(req, res)
-})
-
-app.post("api/admin/delete", (req, res) => {
-    login.deleteuser(req, res)
-})
 
 
 const PORT = 3000;

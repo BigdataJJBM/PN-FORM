@@ -1,8 +1,24 @@
 <template>
- <v-row justify="center">
+
+   <v-app light>
+    <v-toolbar color="white">
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <section>
+        <v-parallax src="../assets/pn_2.jpg" height="600">
+          <v-layout
+            column
+            align-center
+            justify-center
+            class="white--text"
+          >
+            <img src="../assets/pn-logo.png" alt="Vuetify.js" height="200">
+            <h1 class="white--text mb-2 display-1 text-center">Paserelles Numeriques</h1>
+             <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="1000px">
       <template v-slot:activator="{ on }">
-        <v-btn color="light-blue accent-4" class="mt-7" dark v-on="on">Register</v-btn>
+        <v-btn color="light-blue accent-4" class="mt-7" dark v-on="on">Inquire Scholarship</v-btn>
       </template>
 
   <v-card class="my-4 mx-auto px-10 pb-10" max-width="70%" elevation="5">
@@ -15,8 +31,12 @@
       <h3>BE A PASSERELLES NUMERIQUES SCHOLAR!</h3>
     </v-sheet>
     <v-form ref="form" v-model="valid" :lazy-validation="lazy">
-      <h3 class="mb-2">Personal Information</h3>
+          <v-col cols="12" md="2">
+          
+         <h5>Name</h5>
+           </v-col>
       <v-row>
+        
          <v-col cols="12" md="4">
           <v-text-field v-model="firstname" :rules="nameRules" label="First name" required></v-text-field>
         </v-col>
@@ -27,9 +47,9 @@
         <v-col cols="12" md="4">
           <v-text-field v-model="lastname" :rules="nameRules" label="Last name" required></v-text-field>
         </v-col>
-        <v-col cols="12" md="1">
+        <v-col cols="12" md="2">
           
-         <h6>Address</h6>
+         <h5>Address</h5>
            </v-col>
 
         <v-col cols="12" md="3">
@@ -41,21 +61,28 @@
           <v-col cols="12" md="3">
           <v-text-field v-model="barangay"  label="Barangay" required></v-text-field>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="2">
+          
+         <h5>More info</h5>
+           </v-col>
+
+        <v-col cols="12" md="3">
             <v-select
             v-model="gender"
             :items="items"
             label="Gender"
           ></v-select>
         </v-col>
-           <v-col cols="12" md="6">
+           <v-col cols="12" md="3">
           <v-text-field v-model="age"  @keypress="onlyNumber" label="Age" required></v-text-field>
+        </v-col>
+          <v-col cols="12" md="3">
+          <v-text-field v-model="familyIncome"  @keypress="onlyNumber" label="Family Monthly Income" required></v-text-field>
         </v-col>
      
       </v-row>
-        <v-col cols="12" md="5">
-          <v-text-field v-model="familyIncome"  @keypress="onlyNumber" label="Family Monthly Income" required></v-text-field>
-        </v-col>
+       <h5>Contact Info:</h5>
+      
       <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
       <v-text-field
         v-model="contact"
@@ -74,23 +101,83 @@
       ></v-checkbox>
         
       <v-btn color="primary" text class="ml-5" @click="dialog= false" >Cancel</v-btn>
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate()">Submit Request</v-btn>
+      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate(),dialog=false">Submit Request</v-btn>
     </v-form>
     </v-card>
     </v-dialog>
   </v-row>
+          </v-layout>    
+        </v-parallax>
+      </section>
+      <section id="info">
+
+
+          <v-layout row wrap justify-center class="my-12">
+            <v-flex xs12 sm4>
+              <v-card flat class="transparent">
+                <v-card-title primary-title class="layout justify-center">
+                  <div class="headline">Organization Info</div>
+                </v-card-title>
+                <v-card-text>
+                 Passerelles numériques is a French NGO created in 2005 and operating in Cambodia, the Philippines and VietnamPasserelles 
+                 numériques is a French NGO created in 2005 and operating in Cambodia, the Philippines and Vietnam
+                </v-card-text>
+              </v-card>
+            </v-flex>
+            <v-flex xs12 sm4 offset-sm1>
+              <v-card flat class="transparent">
+                <v-card-title primary-title class="layout justify-center">
+                  <div class="headline">Contact us</div>
+                </v-card-title>
+                <v-card-text>
+                  For more information, contact us through the following details:
+                </v-card-text>
+                <v-list class="transparent">
+                  <v-list-item>
+                    <v-list-item-action>
+                      <v-icon class="blue--text text--lighten-2">mdi-phone</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>+63 32 41 80 288</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-action>
+                      <v-icon class="blue--text text--lighten-2">mdi-map-marker</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>Talamban, Cebu City</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-action>
+                      <v-icon class="blue--text text--lighten-2">mdi-email</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>info.philippines@passerellesnumeriques.org</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-card>
+            </v-flex>
+          </v-layout>
+
+      </section>
+    </v-content>
+  </v-app>
+
 </template>
 
-<script>
-
-import {
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+ <script>
+ import {
   createApplicant,
 } from "../helpers/actions";
-
-export default {
- 
-  name: "RegisterForm",
-  data: () => ({
+ export default {
+     name: "applicantPage",
+      data: () => ({
+          title:"PASSERELLES NUMERIQUES PHILIPPINES",
     items: ['Female', 'Male'],
     status: "For Examination",
     action: "For SI",
@@ -184,13 +271,11 @@ export default {
   },
   mounted() {
   }
-};
-</script>
-
-
-<style>
-.v-sheet--offset {
-  top: -25px;
-  position: relative;
-}
-</style>
+ }
+ </script>
+ <style>
+ #info{
+     margin-top:-100px;
+ }
+ 
+ </style>

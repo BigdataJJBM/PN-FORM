@@ -4,34 +4,46 @@ const BASE_URL = 'http://localhost:3000';
 
 
 //action for APPOINTMENTS
-export function getAppointments() {
-    return axios.get(`${BASE_URL}/api/appointment/list`)
+export function getApplicant() {
+    return axios.get(`${BASE_URL}/api/applicant/list`)
         .then(response => response.data)
 }
 
-export function getAppmtDone() {
-    return axios.get(`${BASE_URL}/api/appointment/getDone`)
+export function getApplicantDone() {
+    return axios.get(`${BASE_URL}/api/applicant/getDone`)
         .then(response => response.data)
 }
 
-export function deleteAppointment(id) {
-    return axios.post(`${BASE_URL}/api/appointment/delete/${id}`)
+export function deleteApplicant(id) {
+    return axios.post(`${BASE_URL}/api/applicant/delete/${id}`)
         .then(response => response.data)
         .catch(err => Promise.reject(err.message))
 }
 export function getByLocation(){
-    return axios.get(`${BASE_URL}/api/appointment/byLocation`)
+    return axios.get(`${BASE_URL}/api/applicant/byLocation`)
     .then(response => response.data)
 }
 
-export function createAppointment(data) {
-    return axios.post(`${BASE_URL}/api/appointment/create`, {
+export function getByGender(){
+    return axios.get(`${BASE_URL}/api/applicant/byGender`)
+    .then(response => response.data)
+}
+
+export function createApplicant(data) {
+    return axios.post(`${BASE_URL}/api/applicant/create`, {
             firstname: data.firstname,
+            middlename:data.middlename,
             lastname: data.lastname,
             email: data.email,
             contact: data.contact,
-            municipality:data.municipality,
+            address:{
+            province:data.address.province,  
+            municipality:data.address.municipality,
+            barangay:data.address.barangay,
+            },
+            familyIncome:data.familyIncome,
             gender: data.gender,
+            age:data.age,
             note: data.note,
             status: data.status,
             action: data.action,
@@ -46,8 +58,8 @@ export function createAppointment(data) {
 
 
 
-export function updateAppointment(data, id) {
-    return axios.post(`${BASE_URL}/api/appointment/update/${id}`, { data })
+export function updateApplicant(data, id) {
+    return axios.post(`${BASE_URL}/api/applicant/update/${id}`, { data })
         .then(response => {
             return response.data
         })
@@ -55,18 +67,9 @@ export function updateAppointment(data, id) {
 }
 
 
-//captcha
 
-export function recaptcha() {
-    return axios.get('https://www.google.com/recaptcha/api/siteverify')
-        .then((response) => {
-            console.log(response)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
 
-}
+
 //Admin - Account
 export function getAccount() {
     return axios.get(`${BASE_URL}/api/account/retrieve`)
@@ -95,27 +98,6 @@ export function updateAccount(data, id) {
         .catch(err => Promise.reject(err.message))
 }
 
-//Hours
-export function getHours() {
-    return axios.get(`${BASE_URL}/api/hours/get`)
-        .then(response => response.data)
-}
-
-export function createHours(data) {
-    return axios.post(`${BASE_URL}/api/hours/create`, { totalHours: data.totalHours, hoursRequested: data.hoursRequested })
-        .then(response => {
-            return response.data
-        })
-        .catch(err => Promise.reject(err.message))
-}
-
-export function updateHours(data) {
-    return axios.post(`${BASE_URL}/api/hours/update/`, { data })
-        .then(response => {
-            return response.data
-        })
-        .catch(err => Promise.reject(err.message))
-}
 
 export function login(data) {
     return axios.post(`${BASE_URL}/api/admin/login`, {

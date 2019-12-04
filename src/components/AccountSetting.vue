@@ -53,58 +53,12 @@
          </v-list-item-content>
          </v-list-item>
         </v-list>
-
-        <!-- <v-divider></v-divider>
-        <v-card-title class="headline">Operation Settings</v-card-title>
-        <v-list three-line subheader>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Total Working Minutes Per Day</v-list-item-title>
-              <v-list-item-subtitle>{{hours}}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-          <v-list-item-content> -->
-        <!-- <v-row justify="center">
-    <v-dialog v-model="dialog2" persistent max-width="400px">
-      <template v-slot:activator="{ on }">
-        <v-btn color="light-blue darken-2" v-on="on" absolute right text>Set Hours</v-btn>
-      </template>
-                        <v-card>
-                <v-card-title class="black--text">
-                    <v-list-item-avatar tile right size="62">
-            <img src="../assets/pn-logo.png" />
-          </v-list-item-avatar>
-                <span class="headline">Total Working Minutes</span>
-                </v-card-title>
-                <v-divider color="light-blue lighten-2"></v-divider>
-                <v-card-text>
-                    <v-container>
-                        <v-form class="mt-10"
-                            ref="form"
-                            v-model="valid"
-                            :lazy-validation="lazy2"
-                        >  <v-text-field v-model="hours" type="number" :rules="inputRules" outlined dense  label="Total Minutes" required></v-text-field>
-                        </v-form>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="dialog2 = false">Cancel</v-btn>
-                <v-btn color="blue darken-1" text :disabled="!valid" @click="updateTotalHours">Save</v-btn>
-            </v-card-actions>
-          </v-card>
-    </v-dialog>
-  </v-row> -->
-         <!-- </v-list-item-content>
-         </v-list-item>
-        </v-list> -->
         
       </v-card>
 </template>
 
 <script>
-// import { updateAccount, updateHours, getHours } from "../helpers/actions";
+
 import { updateAccount } from "../helpers/actions";
 export default {
   name: "accountSettings",
@@ -112,7 +66,6 @@ export default {
     return {
       username: "",
       password: "",
-      // hours: 0,
       dialog1: false,
       dialog2: false,
       notifications: false,

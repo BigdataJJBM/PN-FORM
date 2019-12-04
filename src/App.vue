@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app id="main" :style="{background: $vuetify.theme.themes[theme].background}">
-    <Header v-if="$route.name!= 'Login' && $route.name!= 'RegisterForm'" />
+    <Header v-if="$route.name!= 'Login' && $route.name!= 'RegisterForm' && $route.name!= 'ApplicantPage' " />
     <v-content  class="mb-5">
       <router-view />
     </v-content>
@@ -10,7 +10,6 @@
   
 </template>
 <script>
-/*eslint no-console: "error"*/
 
 import Header from "@/components/Header";
 export default {

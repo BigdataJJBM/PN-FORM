@@ -1,10 +1,10 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="clients"
+   :items="list"
     :single-expand="singleExpand"
     :expanded.sync="expanded"
-    item-key="firstname"
+    item-key=""
     class="elevation-5 ma-5"
   >
     <template v-slot:top>
@@ -15,15 +15,19 @@
       </v-toolbar>
     </template>
     <template v-slot:item.action="{ item }">
-      <!-- <v-icon small @click="alertDelete(item)">mdi-delete</v-icon> -->
-      <v-btn x-small color="secondary" dark @click="actionBtn(item)">{{item.action}}</v-btn>
+      <v-btn
+        x-small
+        color="primary"
+        :disabled="item.status == 'Pass'"
+        dark
+        @click="actionBtn(item)"
+      >{{item.action}}</v-btn>
       <v-menu bottom left>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
+            <v-icon>mdi-delete-forever</v-icon>
           </v-btn>
         </template>
-
         <v-list>
           <v-list-item v-for="(action, i) in actions" :key="i" @click="menu(item, action.title)">
             <v-list-item-title>{{ action.title }}</v-list-item-title>
@@ -45,7 +49,7 @@
             <v-list-item-avatar tile right size="62">
               <img src="../assets/pn-logo.png" />
             </v-list-item-avatar>
-            <span class="headline">Client's Details</span>
+            <span class="headline">Student's Details</span>
           </v-card-title>
           <v-divider color="light-blue lighten-2"></v-divider>
           <v-list-item three-line>
@@ -90,9 +94,9 @@
 
 <script>
 import {
-  getAppointments,
-  deleteAppointment,
-  updateAppointment
+  getApplicant,
+  deleteApplicant,
+  updateApplicant
 } from "../helpers/actions";
 import Swal from "sweetalert2";
 
@@ -110,7 +114,8 @@ export default {
       note: "",
       checked: false,
       expanded: [],
-      clients: [],
+      applicants: [],
+      list: [],
       singleExpand: false,
       label: "Process",
       dialog: false,
@@ -128,7 +133,7 @@ export default {
 
         {
           text: "Municipality",
-          value: "municipality"
+          value: "address.municipality"
         },
         {
           text: "Gender",
@@ -138,9 +143,17 @@ export default {
         { text: "Actions", value: "action", sortable: false },
         { text: "", value: "info" }
       ]
+       
     };
   },
   methods: {
+       filter() {
+      this.applicants.forEach(item => {
+        if (item.status != "Pass") {
+          this.list.push(item);
+        }
+      });
+    },
     details(item) {
       console.log(item);
       this.firstname = item.firstname;
@@ -156,46 +169,48 @@ export default {
         this.alertDelete(item);
       }
     },
-    deleteAppointment(item) {
-      const index = this.clients.indexOf(item);
-      const client = this.clients[index];
-      console.log(client);
-      deleteAppointment(client._id)
-        .then(() => this.$emit("deleteAppointment", client._id))
+    deleteApplicant(item) {
+      const index = this.applicants.indexOf(item);
+      const applicant = this.applicants[index];
+      console.log(applicant);
+      deleteApplicant(applicant._id)
+        .then(() => this.$emit("deleteApplicant", applicant._id))
         .catch(err => alert(err));
-      this.retrieveAppointments();
+      this.retrieveApplicant();
     },
 
-    retrieveAppointments() {
-      getAppointments()
-        .then(data => ((this.clients = data.data), console.log(data.data)))
+    retrieveApplicant() {
+      getApplicant()
+        .then(data => ((this.applicants = data.data), console.log(data.data)))
         .catch(err => alert(err));
     },
 
     actionBtn(item) {
       console.log(item);
-      const index = this.clients.indexOf(item);
-      const client = this.clients[index];
+      const index = this.applicants.indexOf(item);
+      const applicant = this.applicants[index];
       if (item.status == "For Examination") {
-        // client.check = false;
         item.action = "Pass";
         item.status = "Social Investigaion...";
       } else if (item.status == "Social Investigaion...") {
-        // client.check = true;
         item.action = "Pass";
         item.status ="Pass"
       }else if (item.status == "Pass") {
-        // client.check = true;
         item.status = "Pass";
         item.action="Pass"
+     
       }
-      const data = { status: client.status, check: client.check, action: client.action };
-      updateAppointment(data, client._id)
+      if (item.status == "Pass") {
+        console.log(this.list)
+        setTimeout(() => {
+          this.list.splice(this.list.indexOf(item), 1);
+        }, 2000);
+      }
+      const data = { status: applicant.status, check: applicant.check, action: applicant.action };
+      updateApplicant(data, applicant._id)
         .then(data => {
-          this.$emit("updateService", data.data);
+          this.$emit("updateApplicant", data.data);
           console.log(data.data);
-          // Object.assign(this.clients[this.editedIndex], data.data)
-          // this.close()
         })
         .catch(err => alert(err.error));
     },
@@ -211,7 +226,7 @@ export default {
         reverseButtons: true
       }).then(result => {
         if (result.value) {
-          this.deleteAppointment(item);
+          this.deleteApplicant(item);
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
@@ -225,8 +240,8 @@ export default {
   },
 
   mounted() {
-    getAppointments()
-      .then(data => ((this.clients = data.data), console.log(data.data)))
+    getApplicant()
+      .then(data => ((this.applicants = data.data), this.filter()))
       .catch(err => alert(err));
   }
 };
