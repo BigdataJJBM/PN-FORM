@@ -11,13 +11,10 @@
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
 
-
-
         <v-btn @click="logout()" icon>
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
+          <v-icon>mdi-logout</v-icon>
+        </v-btn>
             <v-hover v-slot:default="{ hover }">
-
         <strong>Logout</strong>
       </v-hover>
      

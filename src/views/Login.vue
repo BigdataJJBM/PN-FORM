@@ -70,6 +70,7 @@
 </template>
  
 <script>
+import axios from "axios"
 export default {
   name: "btnLogin",
   data() {
@@ -79,15 +80,21 @@ export default {
       password: "",
     };
   },
+  
   methods: {
     login() {
-      if (this.username == "admin" && this.password == "admin") {
+      axios.put("http://localhost:3000/admin/login", {
+        data: { username: this.username, password: this.password }
+      })
+      .then(response =>  {
+        console.log(response)
         sessionStorage.setItem("authenticated", true);
         this.$store.commit("setAuthentication", true);
         this.$router.push({ name: "Dashboard" });
-      } else {
-        alert("Invalid credentials");
-      }
+      })
+      .catch(err => {
+        alert(err);
+      })
     }
   },
   // props: {} 

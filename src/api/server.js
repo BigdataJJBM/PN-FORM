@@ -9,9 +9,9 @@ const Service = require('./Services');
 const Appointment = require('./Appointment');
 const AdminAccnt = require('./AdminAccount')
 
-
 //modules
-const login = require('../modules/login')
+const loginAdmin = require('./admin/login')
+const updateAdmin = require('./admin/update')
 
 //database - mongoose
 mongoose.connect('mongodb://localhost:27017/PN_registration', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
@@ -24,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 //Services - Admin side
+app.put('/admin/login', (req, res) => {
+    loginAdmin.login(req, res);
+})
 app.get('/api/service/list', (req, res) => {
     Service.find({}, (err, data) => {
         if (err) {
@@ -243,7 +246,7 @@ app.post('/api/hours/update', (req, res) => {
 })
 
 app.post("/api/admin/login", (req, res) => {
-    console.log(req.body);
+    console.log(req.body);  
     login.login(req, res);
 });
 
