@@ -45,7 +45,7 @@
                 <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="dialog1= false">Cancel</v-btn>
-                <v-btn color="blue darken-1" text :disabled="!valid" @click="updateAccount">Save</v-btn>
+                <v-btn color="blue darken-1" text :disabled="!valid" @click="updateAccount">change</v-btn>
             </v-card-actions>
           </v-card>
     </v-dialog>
@@ -105,7 +105,8 @@
 
 <script>
 // import { updateAccount, updateHours, getHours } from "../helpers/actions";
-import { updateAccount } from "../helpers/actions";
+// import { updateAccount } from "../helpers/actions";
+import axios from 'axios'
 export default {
   name: "accountSettings",
   data() {
@@ -129,13 +130,14 @@ export default {
   },
   methods: {
     updateAccount() {
-      const data = { username: this.username, password: this.password };
-      updateAccount(data)
-        .then(data => {
-          this.$emit("updateAccount", data.data);
-          console.log(data.data);
-          this.username = data.username;
-          this.password = data.password;
+      axios.put("http://localhost:3000/admin/update", {
+        data: { username: localStorage.getItem('user'), newusername : this.username, newpassword: this.password }
+      })
+        .then(response => {
+          this.$emit("updateAccount", response.data);
+          console.log(response.data.data);
+          localStorage.setItem('user', response.data.data.username)
+          this.$router.push('Settings')
         })
         .catch(err => alert(err.error));
     },

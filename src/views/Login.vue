@@ -87,7 +87,7 @@ export default {
         data: { username: this.username, password: this.password }
       })
       .then(response =>  {
-        console.log(response)
+        localStorage.setItem('user', response.data.user.username)
         sessionStorage.setItem("authenticated", true);
         this.$store.commit("setAuthentication", true);
         this.$router.push({ name: "Dashboard" });

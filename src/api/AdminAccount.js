@@ -27,7 +27,10 @@ AdminSchema.statics.getByUsername = async function(username) {
  AdminSchema.statics.getAccount = async function(username) {
     return await this.findOne({"username" : username});
  }
-
+ 
+ AdminSchema.statics.updateAdmin = async function(username, newusername, newpassword) {
+   return await this.updateOne({"username" : username}, {$set : {"username" : newusername, "password" : newpassword}});
+}
 
 const AdminAccnt = mongoose.model("AdminAccnt", AdminSchema);
 

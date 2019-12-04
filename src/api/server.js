@@ -27,6 +27,9 @@ app.use(cors());
 app.put('/admin/login', (req, res) => {
     loginAdmin.login(req, res);
 })
+app.put('/admin/update', (req, res) => {
+    updateAdmin.update(req, res)
+})
 app.get('/api/service/list', (req, res) => {
     Service.find({}, (err, data) => {
         if (err) {

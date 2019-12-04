@@ -107,6 +107,7 @@ export default {
   methods: {
     logout() {
         sessionStorage.removeItem("authenticated")
+        localStorage.removeItem('user')
         this.$router.go({ name: 'Login' }).catch(err => {
       console.log(err)
       })

@@ -14,17 +14,6 @@ app.use(
 const login = (req, res) => {
   console.log(req.body)
   let test = async function () {
-    const adminExist = await Admin.getByUsername("admin");
-    console.log("username", adminExist);
-    if (adminExist == null) {
-      var admin = {
-        username: "admin",
-        password: bcrypt.hashSync("admin", 10)
-      };
-      await Admin.addPerson(admin);
-      let item = await Admin.getLastAccount();
-      console.log(item)
-    } 
     const exist = await Admin.getByUsernameAndGetPassword(req.body.data.username);
     if (exist == null) {
       res.status(401).json({
