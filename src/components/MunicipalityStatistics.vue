@@ -1,7 +1,20 @@
 <template>
-
+<v-card class="ma-12 mb-12 pa-12">
+   <v-card-title  class="display-1">
+      Percentage of Applicants who Pass per Municipality
+  </v-card-title>
   <apexchart id="municipalitystat" width="600" type="donut" :options="chartOptions" :series="series" labelField="name"></apexchart>
+   <v-layout justify-center>
+        <v-col cols="12" md="5" align-self ="center">
+      <ul>
+  <li v-for="(item, index) in series" :key="index">
+    For the Municipality of {{chartOptions.labels[index]}} - {{series[index]}} passer/passers
+  </li>
+</ul>
 
+        </v-col>
+   </v-layout>
+  </v-card>
 </template>
 <script>
 import Vue from "vue";
@@ -48,6 +61,11 @@ export default {
     },
 
   methods: {
+    town: function (series) {
+    return series.filter(function (val) {
+      return val
+    })
+  },
     retriveLocation() {
       getByLocation()
         .then(data => {

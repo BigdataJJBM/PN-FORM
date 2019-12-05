@@ -7,6 +7,7 @@ import vuetify from './plugins/vuetify';
 
 Vue.use(VueSweetalert2);
 
+
 Vue.config.productionTip = false
 
 new Vue({

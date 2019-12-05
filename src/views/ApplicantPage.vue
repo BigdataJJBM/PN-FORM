@@ -56,7 +56,12 @@
           <v-text-field v-model="province"  label="Province" required></v-text-field>
         </v-col>
          <v-col cols="12" md="3">
-          <v-text-field v-model="municipality"  label="Municipality" required></v-text-field>
+
+          <v-select
+            v-model="municipality"
+            :items="items1"
+            label="Municipality"
+          ></v-select>
         </v-col>
           <v-col cols="12" md="3">
           <v-text-field v-model="barangay"  label="Barangay" required></v-text-field>
@@ -179,6 +184,10 @@
       data: () => ({
           title:"PASSERELLES NUMERIQUES PHILIPPINES",
     items: ['Female', 'Male'],
+    items1:['Abuyog','Alcantara', 'Argao','Barili','Basey‎','Banban','Canlaon',
+    'Carigara','Calape','Daanbantayan','Daram','Dalaguete','Isabel','Moalboal',
+    'Oslob','Santander','Tubigon'],
+     items2:['Bohol','Cebu', 'Leyte','Samar','Siquijor'],
     status: "For Examination",
     action: "For SI",
     dialog: false,

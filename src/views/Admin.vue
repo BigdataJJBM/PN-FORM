@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-   :items="list"
+    :items="list"
     :single-expand="singleExpand"
     :expanded.sync="expanded"
     item-key=""

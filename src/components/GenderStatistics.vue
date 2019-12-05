@@ -1,5 +1,21 @@
 <template>
+  <v-card class="ma-12 mb-12 pa-12">
+       <v-card-title  class="display-1">
+      Percentage of Female and Male Passers
+  </v-card-title>
   <apexchart id="genderStat" width="600" type="donut" :options="chartOptions" :series="series" labelField="name"></apexchart>
+ 
+      <v-spacer></v-spacer>
+      <v-layout justify-center>
+      <v-list-item >
+            <v-list-item-content>
+              <v-list-item-title>There are {{series[0]}} {{chartOptions.labels[0]}} who pass</v-list-item-title>
+              <v-list-item-title>There are {{series[1]}} {{chartOptions.labels[1]}} who pass</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          </v-layout>
+
+</v-card>
 </template>
 <script>
 import Vue from "vue";

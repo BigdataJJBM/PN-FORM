@@ -16,7 +16,6 @@
 <script>
 import Swal from "sweetalert2";
 import { getApplicantDone, deleteApplicant } from "../helpers/actions";
-
 export default {
   name: "Pass",
   data() {
@@ -59,7 +58,6 @@ export default {
         .catch(err => alert(err));
       this.retrieveApplicant();
     },
-
     retrieveApplicant() {
       getApplicantDone()
         .then(data => ((this.applicants = data.data), console.log(data.data)))
