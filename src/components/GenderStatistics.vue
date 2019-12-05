@@ -6,14 +6,16 @@
   <apexchart id="genderStat" width="600" type="donut" :options="chartOptions" :series="series" labelField="name"></apexchart>
  
       <v-spacer></v-spacer>
-      <v-layout justify-center>
-      <v-list-item >
-            <v-list-item-content>
-              <v-list-item-title>There are {{series[0]}} {{chartOptions.labels[0]}} who pass</v-list-item-title>
-              <v-list-item-title>There are {{series[1]}} {{chartOptions.labels[1]}} who pass</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          </v-layout>
+           <v-layout justify-center>
+        <v-col cols="12" md="5" align-self ="center">
+      <ul>
+  <li v-for="(item, index) in series" :key="index">
+    There is/are {{series[index]}} {{chartOptions.labels[index]}}  passer/passers
+  </li>
+</ul>
+
+        </v-col>
+   </v-layout>
 
 </v-card>
 </template>

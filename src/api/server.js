@@ -5,13 +5,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 //models
-// const Service = require('./Services');
+
 const Applicant = require('./Applicant');
 const AdminAccnt = require('./AdminAccount')
 
 
 //modules
-const login = require('../modules/login')
+const loginAdmin = require('./admin/login')
+const updateAdmin = require('./admin/update')
 
 //database - mongoose
 mongoose.connect('mongodb://localhost:27017/PN_registration', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
@@ -119,7 +120,6 @@ app.post('/api/applicant/create', (req, res) => {
         municipality:req.body.address.municipality,
         barangay:req.body.address.barangay,
         },
-        familyIncome:req.body.familyIncome,
         gender:req.body.gender,
         age:req.body.age,
         status: req.body.status,
@@ -154,10 +154,16 @@ app.post('/api/applicant/delete/:id', (req, res) => {
 })
 
 //Admin - Account
+app.put('/admin/login', (req, res) => {
+    loginAdmin.login(req, res);
+})
+app.put('/admin/update', (req, res) => {
+    updateAdmin.update(req, res)
+})
 app.get('/api/account/retrieve', (req, res) => {
     AdminAccnt.find({}, (err, data) => {
         if (err) {
-            return res.status(404).send('Error while getting list of services!');
+            return res.status(404).send('Error while getting this service!');
         }
         return res.send({ data })
     })

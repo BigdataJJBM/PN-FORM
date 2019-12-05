@@ -3,7 +3,13 @@
 ## Project setup
 ```
 npm install
+npm install nodemon
+npm install -g @vue/cli
+npm run api
+
 ```
+
+
 
 ### Compiles and hot-reloads for development
 ```

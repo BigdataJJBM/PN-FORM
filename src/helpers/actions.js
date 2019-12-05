@@ -41,7 +41,6 @@ export function createApplicant(data) {
             municipality:data.address.municipality,
             barangay:data.address.barangay,
             },
-            familyIncome:data.familyIncome,
             gender: data.gender,
             age:data.age,
             note: data.note,

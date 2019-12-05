@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app id="main" :style="{background: $vuetify.theme.themes[theme].background}">
+    <v-app id="main" >
     <Header v-if="$route.name!= 'Login' && $route.name!= 'RegisterForm' && $route.name!= 'ApplicantPage' " />
     <v-content  class="mb-5">
       <router-view />

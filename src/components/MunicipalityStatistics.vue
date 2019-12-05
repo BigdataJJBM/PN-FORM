@@ -11,7 +11,6 @@
     For the Municipality of {{chartOptions.labels[index]}} - {{series[index]}} passer/passers
   </li>
 </ul>
-
         </v-col>
    </v-layout>
   </v-card>

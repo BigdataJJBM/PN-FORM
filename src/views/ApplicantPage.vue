@@ -38,7 +38,7 @@
       <v-row>
         
          <v-col cols="12" md="4">
-          <v-text-field v-model="firstname" :rules="nameRules" label="First name" required></v-text-field>
+          <v-text-field v-model="firstname"  :rules="nameRules" label="First name" required></v-text-field>
         </v-col>
          <v-col cols="12" md="4">
           <v-text-field v-model="middlename"  label="Middle name" required></v-text-field>
@@ -71,18 +71,15 @@
          <h5>More info</h5>
            </v-col>
 
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="4">
             <v-select
             v-model="gender"
             :items="items"
             label="Gender"
           ></v-select>
         </v-col>
-           <v-col cols="12" md="3">
+           <v-col cols="12" md="4">
           <v-text-field v-model="age"  @keypress="onlyNumber" label="Age" required></v-text-field>
-        </v-col>
-          <v-col cols="12" md="3">
-          <v-text-field v-model="familyIncome"  @keypress="onlyNumber" label="Family Monthly Income" required></v-text-field>
         </v-col>
      
       </v-row>
@@ -91,7 +88,6 @@
       <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
       <v-text-field
         v-model="contact"
-        :rules="[v => !!v || 'Item is required']"
         label="Contact Number"
         @keypress="onlyNumber"
         required
@@ -166,7 +162,6 @@
               </v-card>
             </v-flex>
           </v-layout>
-
       </section>
     </v-content>
   </v-app>
@@ -201,7 +196,6 @@
     barangay:"",
     gender:"",
     age:"",
-    familyIncome:"",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 50) || "Name must be less than 50 characters"
@@ -212,7 +206,7 @@
       v => /.+@.+\..+/.test(v) || "E-mail must be valid"
     ],
     selectService: null,
-    services: [],
+
     note: "",
     date: null,
     currentDate: new Date().toISOString().substr(0, 10),
@@ -226,20 +220,27 @@
 
   methods: {
     onlyNumber ($event) {
-   //console.log($event.keyCode); //keyCodes value
    let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
    if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
       $event.preventDefault();
    }
 },
-
+  onlyLetter($event)
+{
+  let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+ if((event.charCode > 64 && 
+event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)){
+  return true
+} else{$event.preventDefault();
+}
+},
     validate() {
     
       if (this.$refs.form.validate()) {
         this.disableSubmit = true;
         this.submitRequest();
         this.firstname =this.middlename= this.lastname = this.contact = this.email = this.note = 
-        this.municipality= this.gender =this.age= this.province=this.familyIncome = this.barangay = null;
+        this.municipality= this.gender =this.age= this.province= this.barangay = null;
         this.checkbox = false;
         this.snackbar = true;
         this.$refs.form.reset();
@@ -252,25 +253,25 @@
         this.note = "No note is added!";
       }
       let data = {
-        firstname: this.firstname,
-        middlename:this.middlename,
-        lastname: this.lastname,
+        firstname: this.firstname.charAt(0).toUpperCase() + this.firstname.slice(1).toLowerCase() ,
+        middlename:this.middlename.charAt(0).toUpperCase() + this.firstname.slice(1).toLowerCase(),
+        lastname: this.lastname.charAt(0).toUpperCase() + this.firstname.slice(1).toLowerCase(),
         email: this.email,
         contact: this.contact,
         address:{
-        province:this.province, 
+        province:this.province.charAt(0).toUpperCase() + this.firstname.slice(1).toLowerCase(), 
         municipality:this.municipality,
-        barangay:this.barangay,
+        barangay:this.barangay.charAt(0).toUpperCase() + this.firstname.slice(1).toLowerCase(),
         },
         age:this.age,
         gender:this.gender,
-        familyIncome:this.familyIncome,
 
         note: this.note,
         status: this.status,
         action: this.action,
 
       };
+      
       createApplicant(data)
         .then(data => {
           this.$emit("createApplicant", data.data);

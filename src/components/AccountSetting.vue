@@ -58,8 +58,7 @@
 </template>
 
 <script>
-
-import { updateAccount } from "../helpers/actions";
+import axios from 'axios'
 export default {
   name: "accountSettings",
   data() {
@@ -82,27 +81,17 @@ export default {
   },
   methods: {
     updateAccount() {
-      const data = { username: this.username, password: this.password };
-      updateAccount(data)
-        .then(data => {
-          this.$emit("updateAccount", data.data);
-          console.log(data.data);
-          this.username = data.username;
-          this.password = data.password;
+      axios.put("http://localhost:3000/admin/update", {
+        data: { username: localStorage.getItem('user'), newusername : this.username, newpassword: this.password }
+      })
+        .then(response => {
+          this.$emit("updateAccount", response.data);
+          console.log(response.data.data);
+          localStorage.setItem('user', response.data.data.username)
+          this.$router.push('Settings')
         })
         .catch(err => alert(err.error));
     },
-
-    // updateTotalHours() {
-    //   const data = { totalHours: this.hours };
-    //   updateHours(data)
-    //     .then(data => {
-    //       this.$emit("updateHours", data.data);
-    //       console.log(data.data);
-    //       this.dialog2 = false;
-    //     })
-    //     .catch(err => alert(err.error));
-    // },
     close() {
       this.dialog2 = false;
       console.log(this.data);
@@ -110,9 +99,6 @@ export default {
     }
   },
   mounted() {
-    // getHours()
-    //   .then(data => (this.hours = this.data = data.data[0].totalHours))
-    //   .catch(err => alert(err));
   }
 };
 </script>

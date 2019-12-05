@@ -1,0 +1,81 @@
+[{
+    "firstname":"Mike",
+    "middlename":"Petilla",
+    "lastname":"Burce",
+    "email": "jerome.burce@gmail.com",
+    "contact":09287225306,
+    "age":18,
+    "gender":"Male",
+    "address":{
+    "province":"Leyte",
+    "municipality":"Palo",
+    "barangay":"Arado"
+     } ,
+    "note":"Life is good always",
+    "status":"Pass"
+}, 
+{
+    "firstname":"Liza",
+    "middlename":"Zamora",
+    "lastname":"Lax",
+    "email": "lax@gmail.com",
+    "contact":09287225306,
+    "age":18,
+    "gender":"Female",
+    "address":{
+    "province":"Bohol",
+    "municipality":"Tubigon",
+    "barangay":"Purok"
+     } ,
+    "note":"Life is good always",
+    "status":"Pass"
+}, 
+
+{
+    "firstname":"Jhon",
+    "middlename":"milee",
+    "lastname":"onli",
+    "email": "hiyou@gmail.com",
+    "contact":09657382940,
+    "age":18,
+    "gender":"Male",
+    "address":{
+    "province":"Cebu",
+    "municipality":"Minglanilla",
+    "barangay":"Tungkop"
+     } ,
+    "note":"Life is good always",
+    "status":"Pass"
+}, 
+{
+    "firstname":"sarah",
+    "middlename":"lee",
+    "lastname":"yun",
+    "email": "loveyou@gmail.com",
+    "contact":09776447463,
+    "age":20,
+    "gender":"Female",
+    "address":{
+    "province":"Bohol",
+    "municipality":"capiz",
+    "barangay":"Purok"
+     } ,
+    "note":"Life is good always",
+    "status":"Pass"
+}, 
+{
+    "firstname":"louh",
+    "middlename":"lie",
+    "lastname":"lee",
+    "email": "hou@gmail.com",
+    "contact":09287343306,
+    "age":19,
+    "gender":"female",
+    "address":{
+    "province":"cebu",
+    "municipality":"Mandaue",
+    "barangay":"sitio",
+     } ,
+    "note":"Life is good always",
+    "status":"Pass"
+}]

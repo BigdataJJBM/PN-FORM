@@ -116,7 +116,6 @@ export default {
       v => /.+@.+\..+/.test(v) || "E-mail must be valid"
     ],
     selectService: null,
-    services: [],
     note: "",
     date: null,
     currentDate: new Date().toISOString().substr(0, 10),
