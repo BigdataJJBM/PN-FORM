@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Admin from '../views/Admin.vue'
-import RegisterForm from '../components/Registration.vue'
+// import RegisterForm from '../components/Registration.vue'
 import Login from '../views/Login.vue'
 import Pass from '../views/StudentPass.vue'
 import store from "../store"
@@ -95,11 +95,6 @@ const router = new VueRouter({
                     next();
                 }
             }
-        },
-        {
-            path: '/register-form',
-            name: 'RegisterForm',
-            component: RegisterForm,
         },
         {
             path: '/applicant-page',

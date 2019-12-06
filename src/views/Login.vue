@@ -91,7 +91,7 @@ h2 {
   color: black;
 }
 #back {
-  background-image: url("../assets/background.jpg");
+  background-image: url("../assets/bc.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
 }

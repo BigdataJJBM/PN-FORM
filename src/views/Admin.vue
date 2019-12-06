@@ -1,5 +1,5 @@
 <template>
-  <v-data-table
+   <v-data-table
     :headers="headers"
     :items="list"
     :single-expand="singleExpand"
@@ -11,9 +11,11 @@
       <v-toolbar flat class="ma-5 mb-12 pa-5">
         <v-spacer></v-spacer>
         <v-toolbar-title class="text-center display-2">Student Candidates</v-toolbar-title>
+        <!-- <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field> -->
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
+    <!-- <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field> -->
     <template v-slot:item.action="{ item }">
       <v-btn
         x-small
@@ -49,7 +51,7 @@
             <v-list-item-avatar tile right size="62">
               <img src="../assets/pn-logo.png" />
             </v-list-item-avatar>
-            <span class="headline">Student's Details</span>
+            <span class="headline">Applicant's Details</span>
           </v-card-title>
           <v-divider color="light-blue lighten-2"></v-divider>
           <v-list-item three-line>
@@ -105,6 +107,7 @@ export default {
   data() {
     return {
       status:'On Queue',
+      search:"",
       firstname: "",
       lastname: "",
       email: "",
