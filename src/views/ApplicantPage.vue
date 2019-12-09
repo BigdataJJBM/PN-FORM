@@ -16,20 +16,16 @@
                 </template>
 
                 <v-card class="my-4 mx-auto px-10 pb-10" max-width="70%" elevation="5">
-                  <v-sheet
-                    class="v-sheet--offset mx-auto mt-10 pa-5"
-                    color="orange darken-2"
-                    elevation="10"
-                    max-width="calc(100% - 1px)"
-                  >
-                    <h3>BE A PASSERELLES NUMERIQUES SCHOLAR!</h3>
-                  </v-sheet>
                   <v-form ref="form" v-model="valid" :lazy-validation="lazy">
-                    <v-col cols="12" md="2">
-                      <h5>Name</h5>
-                    </v-col>
+                    <center>
+                      <v-card-title>Passerelles numeriques IT Training Program 2020</v-card-title>
+                    </center>
+
+                    <center>
+                      <v-card-subtitle class="pb-0">Application Form</v-card-subtitle>
+                    </center>
+
                     <v-row>
-                   
                       <v-col cols="12" md="4">
                         <v-text-field
                           v-model="firstname"
@@ -39,7 +35,12 @@
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4">
-                        <v-text-field v-model="middlename" @keypress="onlyLetter" label="Middle name" required></v-text-field>
+                        <v-text-field
+                          v-model="middlename"
+                          @keypress="onlyLetter"
+                          label="Middle name"
+                          required
+                        ></v-text-field>
                       </v-col>
 
                       <v-col cols="12" md="4">
@@ -51,21 +52,33 @@
                           required
                         ></v-text-field>
                       </v-col>
-                      <v-col cols="12" md="2">
-                        <h5>Address</h5>
-                      </v-col>
-
-                      <v-col cols="12" md="3">
-                        <v-text-field v-model="province" @keypress="onlyLetter" label="Province" required></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="3">
-                        <v-select v-model="municipality" @keypress="onlyLetter" :items="items1" label="Municipality"></v-select>
-                      </v-col>
-                      <v-col cols="12" md="3">
-                        <v-text-field v-model="barangay" @keypress="onlyLetter" label="Barangay" required></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="2">
-                        <h5>More info</h5>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-menu
+                          ref="menu"
+                          v-model="menu"
+                          :close-on-content-click="false"
+                          :return-value.sync="date"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="290px"
+                        >
+                          <template v-slot:activator="{ on }">
+                            <v-text-field
+                              v-model="date"
+                              label="Birthdate"
+                              prepend-icon="event"
+                              readonly
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker v-model="date" no-title scrollable>
+                            <v-spacer></v-spacer>
+                            <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                            <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                          </v-date-picker>
+                        </v-menu>
                       </v-col>
 
                       <v-col cols="12" md="4">
@@ -75,15 +88,107 @@
                         <v-text-field v-model="age" @keypress="onlyNumber" label="Age" required></v-text-field>
                       </v-col>
                     </v-row>
-                    <h5>Contact Info:</h5>
 
-                    <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-                    <v-text-field
-                      v-model="contact"
-                      label="Contact Number"
-                      @keypress="onlyNumber"
-                      required
-                    ></v-text-field>
+                    <h5>Address</h5>
+                    <v-row>
+                      <v-col cols="12" md="4">
+                        <v-text-field
+                          v-model="province"
+                          @keypress="onlyLetter"
+                          label="Province"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="4">
+                        <v-select
+                          v-model="municipality"
+                          @keypress="onlyLetter"
+                          :items="items1"
+                          label="Municipality"
+                        ></v-select>
+                      </v-col>
+                      <v-col cols="12" md="4">
+                        <v-text-field
+                          v-model="barangay"
+                          @keypress="onlyLetter"
+                          label="Barangay"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <h5>Contact Information:</h5>
+                    <v-row>
+                      <v-col cols="12" md="7">
+                        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="5">
+                        <v-text-field
+                          v-model="contact"
+                          label="Contact Number"
+                          @keypress="onlyNumber"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <h5>Senior High School Education:</h5>
+                    <v-row>
+                      <v-col cols="12" md="7">
+                        <v-text-field
+                          v-model="school"
+                          @keypress="onlyLetter"
+                          label="Senior High School Name"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="5">
+                        <v-select
+                          v-model="specialization"
+                          :items="items2"
+                          label="Choosen Senior High Field"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
+                    <h5>FAMILY BACKGROUND</h5>
+                    <v-row>
+                      <v-col cols="12" md="7">
+                        <v-text-field v-model="fatherName" label="Father Name" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="5">
+                        <v-text-field
+                          v-model="fatherIncome"
+                          label="Father Income"
+                          @keypress="onlyNumber"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="12" md="7">
+                        <v-text-field v-model="motherName" label="Mother Name" required></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" md="5">
+                        <v-text-field
+                          v-model="motherIncome"
+                          label="Mother Income"
+                          @keypress="onlyNumber"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="12" md="3"></v-col>
+
+                      <v-col cols="12" md="5">
+                        <v-select
+                          v-model="familySituation"
+                          @keypress="onlyLetter"
+                          :items="items3"
+                          label="Family Situation"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
+
                     <v-textarea v-model="note" outlined name="input-7-4" label="Motivation" value></v-textarea>
                     <v-spacer></v-spacer>
                     <v-checkbox
@@ -167,6 +272,9 @@ import { createApplicant } from "../helpers/actions";
 export default {
   name: "applicantPage",
   data: () => ({
+    menu: false,
+    modal: false,
+    menu2: false,
     title: "PASSERELLES NUMERIQUES PHILIPPINES",
     items: ["Female", "Male"],
     items1: [
@@ -188,7 +296,31 @@ export default {
       "Santander",
       "Tubigon"
     ],
-    items2: ["Bohol", "Cebu", "Leyte", "Samar", "Siquijor"],
+    items2: [
+      "ABM",
+      "AGRI-FISHERY",
+      "HUMSS",
+      "HOME ECOMOMICS",
+      "STEM",
+      "ICT",
+      "PRE-BACCALAUREATE",
+      "INDUSTRIAL ARTS",
+      "GENERAL ACADEMIC",
+      "TVL MARITIME",
+      "SPORTS",
+      "ARTS AND DESIGN"
+    ],
+    items3: [
+      "Married",
+      "Live-in",
+      "Separated",
+      "Father left",
+      "Father died",
+      "Mother left",
+      "Mother died",
+      "Bothe left",
+      "Both died"
+    ],
     status: "For Examination",
     action: "For SI",
     dialog: false,
@@ -197,12 +329,20 @@ export default {
     firstname: "",
     middlename: "",
     lastname: "",
+    date: new Date().toISOString().substr(0, 10),
+    gender: "",
+    age: "",
     contact: "",
     province: "",
     municipality: "",
     barangay: "",
-    gender: "",
-    age: "",
+    school:"",
+    specialization:"",
+    fatherName:"",
+    fatherIncome:"",
+    motherName:"",
+    motherIncome:"",
+    familySituation:"",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 50) || "Name must be less than 50 characters"
@@ -247,7 +387,8 @@ export default {
       if (this.$refs.form.validate()) {
         this.disableSubmit = true;
         this.submitRequest();
-        this.firstname = this.middlename = this.lastname = this.contact = this.email = this.note = this.municipality = this.gender = this.age = this.province = this.barangay = null;
+        this.firstname = this.middlename = this.lastname = this.contact = this.email = this.note  = this.gender = this.age = this.municipality= this.province = this.barangay = this.school=this.specialization=this.fatherName=
+        this.fatherIncome=this.motherName=this.motherIncome=this.familySituation= null;
         this.checkbox = false;
         this.snackbar = true;
         this.$refs.form.reset();
@@ -270,6 +411,9 @@ export default {
           this.lastname.slice(1).toLowerCase(),
         email: this.email,
         contact: this.contact,
+        birthdate:this.date,
+        age: this.age,
+        gender: this.gender,
         address: {
           province:
             this.province.charAt(0).toUpperCase() +
@@ -279,9 +423,17 @@ export default {
             this.barangay.charAt(0).toUpperCase() +
             this.barangay.slice(1).toLowerCase()
         },
-        age: this.age,
-        gender: this.gender,
-
+        seniorhighSchoolBackground:{
+          school:this.school,
+          specialization:this.specialization,
+        },
+        familyBackground:{
+          fatherName:this.fatherName,
+          fatherIncome:this.fatherIncome,
+          motherName:this.motherName,
+          motherIncome:this.motherIncome,
+          familySituation:this.familySituation,
+        },
         note: this.note,
         status: this.status,
         action: this.action

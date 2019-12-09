@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Admin from '../views/Admin.vue'
-// import RegisterForm from '../components/Registration.vue'
+import Pending from '../views/StudentOnProcess.vue'
 import Login from '../views/Login.vue'
 import Pass from '../views/StudentPass.vue'
+import Fail from '../views/ApplicantFail.vue'
 import store from "../store"
 import AccountSettings from '../components/AccountSetting.vue';
 import Gender from '../components/GenderStatistics.vue';
@@ -40,6 +41,30 @@ const router = new VueRouter({
             path: '/admin',
             name: 'Dashboard',
             component: Admin,
+            beforeEnter: (to, from, next) => {
+                if (store.state.authenticated == false) {
+                    next("/login");
+                } else {
+                    next();
+                }
+            }
+        },
+        {
+            path: '/fail',
+            name: 'Fail',
+            component: Fail,
+            beforeEnter: (to, from, next) => {
+                if (store.state.authenticated == false) {
+                    next("/login");
+                } else {
+                    next();
+                }
+            }
+        },
+        {
+            path: '/pending',
+            name: 'Pending',
+            component: Pending,
             beforeEnter: (to, from, next) => {
                 if (store.state.authenticated == false) {
                     next("/login");

@@ -1,8 +1,20 @@
 <template>
   <span>
-    <!-- <v-system-bar color="light-blue darken-3"></v-system-bar> -->
-    <v-app-bar color="amber darken-3" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+    </v-navigation-drawer>
+
+    <v-app-bar
+      app
+      color="blue darken-1"
+      dark
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title>Borrower</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
 
       <v-toolbar-title>PASSERELLES NUMERIQUES SELECTION</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -64,6 +76,16 @@ export default {
         icon: "mdi-account-multiple",
         title: "List of Passers",
         link: "/students"
+      },
+      {
+        icon: "mdi-account-multiple",
+        title: "Pending",
+        link: "/pending"
+      },
+       {
+        icon: "mdi-account-multiple",
+        title: "Fail",
+        link: "/fail"
       },
       { icon: "mdi-chart-arc", title: "Municipality", link: "/municipality" },
       { icon: "mdi-chart-arc", title: "Gender", link: "/gender" },

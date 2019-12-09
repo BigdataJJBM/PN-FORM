@@ -14,39 +14,62 @@ export function getApplicantDone() {
         .then(response => response.data)
 }
 
+export function getApplicantPending() {
+    return axios.get(`${BASE_URL}/api/applicant/getPending`)
+        .then(response => response.data)
+}
+
+export function getApplicantFail() {
+    return axios.get(`${BASE_URL}/api/applicant/getFail`)
+        .then(response => response.data)
+}
+
 export function deleteApplicant(id) {
     return axios.post(`${BASE_URL}/api/applicant/delete/${id}`)
         .then(response => response.data)
         .catch(err => Promise.reject(err.message))
 }
-export function getByLocation(){
+export function getByLocation() {
     return axios.get(`${BASE_URL}/api/applicant/byLocation`)
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
-export function getByGender(){
+export function getByGender() {
     return axios.get(`${BASE_URL}/api/applicant/byGender`)
-    .then(response => response.data)
+        .then(response => response.data)
 }
 
 export function createApplicant(data) {
     return axios.post(`${BASE_URL}/api/applicant/create`, {
-            firstname: data.firstname,
-            middlename:data.middlename,
-            lastname: data.lastname,
-            email: data.email,
-            contact: data.contact,
-            address:{
-            province:data.address.province,  
-            municipality:data.address.municipality,
-            barangay:data.address.barangay,
-            },
-            gender: data.gender,
-            age:data.age,
-            note: data.note,
-            status: data.status,
-            action: data.action,
-        })
+        firstname: data.firstname,
+        middlename: data.middlename,
+        lastname: data.lastname,
+        email: data.email,
+        contact: data.contact,
+        birthdate: data.birthdate,
+        address: {
+            province: data.address.province,
+            municipality: data.address.municipality,
+            barangay: data.address.barangay,
+        },
+        seniorhighSchoolBackground: {
+            school: data.seniorhighSchoolBackground.school,
+            specialization: data.seniorhighSchoolBackground.specialization,
+
+        },
+        familyBackground: {
+            fatherName: data.familyBackground.fatherName,
+            fatherIncome: data.familyBackground.fatherIncome,
+            motherName: data.familyBackground.motherName,
+            motherIncome: data.familyBackground.motherIncome,
+            familySituation: data.familyBackground.familySituation,
+        },
+        gender: data.gender,
+        age: data.age,
+        note: data.note,
+        status: data.status,
+        action: data.action,
+    })
         .then(response => {
             return response.data
         })
@@ -100,9 +123,9 @@ export function updateAccount(data, id) {
 
 export function login(data) {
     return axios.post(`${BASE_URL}/api/admin/login`, {
-            username: data.username,
-            password: data.password,
-        })
+        username: data.username,
+        password: data.password,
+    })
         .then(response => {
             return response.data
         })

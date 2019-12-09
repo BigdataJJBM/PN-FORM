@@ -1,21 +1,21 @@
 <template>
-   <v-data-table
+  <v-data-table
     :headers="headers"
     :items="list"
     :single-expand="singleExpand"
     :expanded.sync="expanded"
-    item-key=""
+    item-key
     class="elevation-5 ma-5"
   >
     <template v-slot:top>
       <v-toolbar flat class="ma-5 mb-12 pa-5">
         <v-spacer></v-spacer>
         <v-toolbar-title class="text-center display-2">Student Candidates</v-toolbar-title>
-        <!-- <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field> -->
+        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
-    <!-- <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field> -->
+    <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
     <template v-slot:item.action="{ item }">
       <v-btn
         x-small
@@ -24,6 +24,13 @@
         dark
         @click="actionBtn(item)"
       >{{item.action}}</v-btn>
+      <v-btn
+        x-small
+        color="warning"
+          :disabled="item.status == 'Fail'"
+        dark
+        @click="actionBtn1(item)"
+      >Fail</v-btn>
       <v-menu bottom left>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
@@ -46,7 +53,7 @@
         <template v-slot:activator="{ on }">
           <v-icon small @click="details(item)" v-on="on">mdi-information</v-icon>
         </template>
-        <v-card class="pa-4">
+        <v-card max-width="500" class="mx-auto">
           <v-card-title class="black--text">
             <v-list-item-avatar tile right size="62">
               <img src="../assets/pn-logo.png" />
@@ -54,30 +61,58 @@
             <span class="headline">Applicant's Details</span>
           </v-card-title>
           <v-divider color="light-blue lighten-2"></v-divider>
+          <v-list-item two-line>
+            <v-list-item-content>
+              <v-list-item-title class="text-md-center">Name</v-list-item-title>
+              <v-list-item-title>First Name: {{firstname}}</v-list-item-title>
+              <v-list-item-title>Middle Name: {{middlename}}</v-list-item-title>
+              <v-list-item-title>Last Name: {{lastname}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item two-line>
+            <v-list-item-content>
+              <v-list-item-title>Birthdate:{{date}}</v-list-item-title>
+              <v-list-item-title>Gender: {{gender}}</v-list-item-title>
+              <v-list-item-title>Age:{{age}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item three-line>
             <v-list-item-content>
-              <v-list-item-title>Name</v-list-item-title>
-              <v-list-item-subtitle>{{firstname+" "+lastname}}</v-list-item-subtitle>
+              <v-list-item-title class="text-md-center">Address</v-list-item-title>
+              <v-list-item-title>Barangay:{{barangay}}</v-list-item-title>
+              <v-list-item-title>Municipality: {{municipality}}</v-list-item-title>
+              <v-list-item-title>Province:{{province}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title class="text-md-center">Contact Information</v-list-item-title>
+              <v-list-item-title>Contact Number: {{contact}}</v-list-item-title>
+              <v-list-item-title>Email: {{email}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-item three-line>
             <v-list-item-content>
-              <v-list-item-title>Email Address</v-list-item-title>
-              <v-list-item-subtitle>{{email}}</v-list-item-subtitle>
+              <v-list-item-title class="text-md-center">Senior High School Background</v-list-item-title>
+              <v-list-item-title>Senior High School: {{school}}</v-list-item-title>
+              <v-list-item-title>Specialization: {{specialization}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <v-list-item-title class="text-md-center">Family Background</v-list-item-title>
+              <v-list-item-title>Father Name: {{fatherName}}</v-list-item-title>
+              <v-list-item-title>Father Income: {{fatherIncome}}</v-list-item-title>
+              <v-list-item-title>Mother Name: {{motherName}}</v-list-item-title>
+              <v-list-item-title>MOther Income: {{motherIncome}}</v-list-item-title>
+              <v-list-item-title>Family Situation: {{familySituation}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-item three-line>
             <v-list-item-content>
-              <v-list-item-title>Contact Number</v-list-item-title>
-              <v-list-item-subtitle>{{contact}}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item three-line>
-            <v-list-item-content>
-              <v-list-item-title>Notes</v-list-item-title>
+              <v-list-item-title>Motivation</v-list-item-title>
               <v-list-item-subtitle>{{note}}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -106,19 +141,32 @@ export default {
   name: "Dashboard",
   data() {
     return {
-      status:'On Queue',
-      search:"",
+      status: "On Queue",
+      search: "",
       firstname: "",
+      middlename: "",
       lastname: "",
-      email: "",
-      contact: "",
-      municipality: "",
+      date: "",
       gender: "",
+      age: "",
+      contact: "",
+      province: "",
+      municipality: "",
+      barangay: "",
+      school: "",
+      specialization: "",
+      fatherName: "",
+      fatherIncome: "",
+      motherName: "",
+      motherIncome: "",
+      familySituation: "",
+      email: "",
       note: "",
       checked: false,
       expanded: [],
       applicants: [],
       list: [],
+      list2: [],
       singleExpand: false,
       label: "Process",
       dialog: false,
@@ -146,11 +194,10 @@ export default {
         { text: "Actions", value: "action", sortable: false },
         { text: "", value: "info" }
       ]
-       
     };
   },
   methods: {
-       filter() {
+    filter() {
       this.applicants.forEach(item => {
         if (item.status != "Pass") {
           this.list.push(item);
@@ -161,8 +208,21 @@ export default {
       console.log(item);
       this.firstname = item.firstname;
       this.lastname = item.lastname;
+      this.middlename = item.middlename;
       this.email = item.email;
-      this.municipality = item.municipality;
+      this.gender = item.gender;
+      this.age = item.age;
+      this.date = item.birthdate;
+      this.barangay = item.address.barangay;
+      this.province = item.address.province;
+      this.municipality = item.address.municipality;
+      this.school = item.seniorhighSchoolBackground.school;
+      this.specialization = item.seniorhighSchoolBackground.specialization;
+      this.fatherIncome = item.familyBackground.fatherIncome;
+      this.fatherName = item.familyBackground.fatherName;
+      this.motherName = item.familyBackground.motherName;
+      this.motherIncome = item.familyBackground.motherIncome;
+      this.familySituation = item.familyBackground.familySituation;
       this.gender = item.gender;
       this.contact = item.contact;
       this.note = item.note;
@@ -194,22 +254,29 @@ export default {
       const applicant = this.applicants[index];
       if (item.status == "For Examination") {
         item.action = "Pass";
-        item.status = "Social Investigaion...";
-      } else if (item.status == "Social Investigaion...") {
+        item.status = "Pending";
+      } else if (item.status == "For Social Instigation") {
         item.action = "Pass";
-        item.status ="Pass"
-      }else if (item.status == "Pass") {
         item.status = "Pass";
-        item.action="Pass"
-     
+      } else if (item.status == "Pass") {
+        item.status = "Pass";
+        item.action = "Pass";
+      }
+      else if (item.status == "Pass") {
+        item.status = "Pass";
+        item.action = "Pass";
       }
       if (item.status == "Pass") {
-        console.log(this.list)
+        console.log(this.list);
         setTimeout(() => {
           this.list.splice(this.list.indexOf(item), 1);
         }, 2000);
       }
-      const data = { status: applicant.status, check: applicant.check, action: applicant.action };
+      const data = {
+        status: applicant.status,
+        check: applicant.check,
+        action: applicant.action
+      };
       updateApplicant(data, applicant._id)
         .then(data => {
           this.$emit("updateApplicant", data.data);
@@ -217,6 +284,29 @@ export default {
         })
         .catch(err => alert(err.error));
     },
+      actionBtn1(item) {
+      console.log(item);
+      const index = this.applicants.indexOf(item);
+      const applicant = this.applicants[index];
+      item.status = "Fail";
+       if (item.status == "Fail") {
+        console.log(this.list);
+        setTimeout(() => {
+          this.list.splice(this.list.indexOf(item), 1);
+        }, 2000);
+      }
+      const data = {
+        status: applicant.status,
+        check: applicant.check,
+      };
+      updateApplicant(data, applicant._id)
+        .then(data => {
+          this.$emit("updateApplicant", data.data);
+          console.log(data.data);
+        })
+        .catch(err => alert(err.error));
+    },
+    
     alertDelete(item) {
       Swal.fire({
         title: "Are you sure?",

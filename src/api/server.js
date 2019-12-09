@@ -9,13 +9,12 @@ const bodyParser = require('body-parser');
 const Applicant = require('./Applicant');
 const AdminAccnt = require('./AdminAccount')
 
-
 //modules
 const loginAdmin = require('./admin/login')
 const updateAdmin = require('./admin/update')
 
 //database - mongoose
-mongoose.connect('mongodb://localhost:27017/PN_registration', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/PN_Form', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.set('useFindAndModify', false);
@@ -111,17 +110,32 @@ app.post('/api/applicant/create', (req, res) => {
         firstname: req.body.firstname,
         middlename:req.body.middlename,
         lastname: req.body.lastname,
+        gender:req.body.gender,
+        age:req.body.age,
+        birthdate:req.body.birthdate,
         email: req.body.email,
         contact: req.body.contact,
-        reason: req.body.reason,
-        note: req.body.note,
+       
         address:{
         province:req.body.address.province,
         municipality:req.body.address.municipality,
         barangay:req.body.address.barangay,
         },
-        gender:req.body.gender,
-        age:req.body.age,
+        seniorhighSchoolBackground: {
+            school: req.body.seniorhighSchoolBackground.school,
+            specialization: req.body.seniorhighSchoolBackground.specialization,
+
+        },
+        familyBackground: {
+            fatherName: req.body.familyBackground.fatherName,
+            fatherIncome: req.body.familyBackground.fatherIncome,
+            motherName: req.body.familyBackground.motherName,
+            motherIncome: req.body.familyBackground.motherIncome,
+            familySituation: req.body.familyBackground.familySituation,
+        },
+       
+        reason: req.body.reason,
+        note: req.body.note,
         status: req.body.status,
         action: req.body.action,
     
@@ -139,6 +153,20 @@ app.get('/api/applicant/getDone', (req, res) => {
     })
 })
 
+
+app.get('/api/applicant/getPending', (req, res) => {
+    Applicant.find({ status: "Social Investigation" || "For Examination"}).exec((err, data) => {
+        if (err) return res.status(404).send('Error while getting list of applicant!');
+        return res.send({ data })
+    })
+})
+
+app.get('/api/applicant/getFail', (req, res) => {
+    Applicant.find({ status: "Fail" }).exec((err, data) => {
+        if (err) return res.status(404).send('Error while getting list of applicant!');
+        return res.send({ data })
+    })
+})
 app.post('/api/applicant/update/:id', (req, res) => {
     Applicant.findByIdAndUpdate(req.params.id, req.body.data, { new: true }, (err, data) => {
         if (err) return res.status(404).send({ error: err.message });
