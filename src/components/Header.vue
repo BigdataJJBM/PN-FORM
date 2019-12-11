@@ -12,7 +12,6 @@
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>Borrower</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
 
@@ -76,11 +75,6 @@ export default {
         icon: "mdi-account-multiple",
         title: "List of Passers",
         link: "/students"
-      },
-      {
-        icon: "mdi-account-multiple",
-        title: "Pending",
-        link: "/pending"
       },
        {
         icon: "mdi-account-multiple",

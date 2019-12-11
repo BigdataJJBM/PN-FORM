@@ -71,14 +71,11 @@ export function createApplicant(data) {
         action: data.action,
     })
         .then(response => {
-            return response.data
+            console.log(response.data)
+            return response.data;
         })
         .catch(err => Promise.reject(err.message))
 }
-
-
-
-
 
 export function updateApplicant(data, id) {
     return axios.post(`${BASE_URL}/api/applicant/update/${id}`, { data })
@@ -87,10 +84,6 @@ export function updateApplicant(data, id) {
         })
         .catch(err => Promise.reject(err.message))
 }
-
-
-
-
 
 //Admin - Account
 export function getAccount() {

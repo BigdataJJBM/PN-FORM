@@ -27,7 +27,7 @@ app.use(cors());
 
 // Applicant
 app.get('/api/applicant/list', (req, res) => {
-    Applicant.find({}).exec((err, data) => {
+    Applicant.find({ status: { $nin: ["Fail", "Pass"]} }).exec((err, data) => {
         if (err) return res.status(404).send('Error while getting list of applicant!');
         return res.send({ data })
     })
@@ -152,6 +152,8 @@ app.get('/api/applicant/getDone', (req, res) => {
         return res.send({ data })
     })
 })
+
+
 
 
 app.get('/api/applicant/getPending', (req, res) => {

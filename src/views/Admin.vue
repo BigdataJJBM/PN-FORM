@@ -116,10 +116,16 @@
               <v-list-item-subtitle>{{note}}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" @click="dialog=false">close</v-btn>
+          
+              
+             <RegisterForm/>
+            <v-btn color="blue darken-1" @click="dialog=false, reloadPage()">close</v-btn>
+            
           </v-card-actions>
+ 
         </v-card>
       </v-dialog>
     </template>
@@ -135,12 +141,18 @@ import {
   deleteApplicant,
   updateApplicant
 } from "../helpers/actions";
+
+import RegisterForm from "../components/Registration"
 import Swal from "sweetalert2";
 
 export default {
   name: "Dashboard",
+  components :  {
+    RegisterForm
+  },
   data() {
     return {
+     
       status: "On Queue",
       search: "",
       firstname: "",
@@ -170,7 +182,7 @@ export default {
       singleExpand: false,
       label: "Process",
       dialog: false,
-      actions: [{ title: "Cancel" }, { title: "Delete" }],
+      actions: [{ title: "Delete" }],
       headers: [
         {
           text: "Firstname",
@@ -204,8 +216,12 @@ export default {
         }
       });
     },
+    reloadPage(){
+    window.location.reload()
+  },
     details(item) {
       console.log(item);
+      localStorage.setItem('applicant', JSON.stringify(item))
       this.firstname = item.firstname;
       this.lastname = item.lastname;
       this.middlename = item.middlename;
@@ -254,18 +270,11 @@ export default {
       const applicant = this.applicants[index];
       if (item.status == "For Examination") {
         item.action = "Pass";
-        item.status = "Pending";
-      } else if (item.status == "For Social Instigation") {
+        item.status = "For Social Investigation";
+      } else if (item.status == "For Social Investigation") {
         item.action = "Pass";
-        item.status = "Pass";
-      } else if (item.status == "Pass") {
-        item.status = "Pass";
-        item.action = "Pass";
-      }
-      else if (item.status == "Pass") {
-        item.status = "Pass";
-        item.action = "Pass";
-      }
+         item.status = "Pass";
+      } 
       if (item.status == "Pass") {
         console.log(this.list);
         setTimeout(() => {
@@ -273,13 +282,15 @@ export default {
         }, 2000);
       }
       const data = {
-        status: applicant.status,
+       
         check: applicant.check,
-        action: applicant.action
+        action: applicant.action,
+        status: applicant.status,
       };
       updateApplicant(data, applicant._id)
         .then(data => {
           this.$emit("updateApplicant", data.data);
+          this.retrieveApplicant();
           console.log(data.data);
         })
         .catch(err => alert(err.error));
@@ -296,8 +307,9 @@ export default {
         }, 2000);
       }
       const data = {
-        status: applicant.status,
+       
         check: applicant.check,
+        status: applicant.status,
       };
       updateApplicant(data, applicant._id)
         .then(data => {
@@ -319,6 +331,7 @@ export default {
         reverseButtons: true
       }).then(result => {
         if (result.value) {
+          this.reloadPage();
           this.deleteApplicant(item);
           Swal.fire({
             title: "Deleted!",
