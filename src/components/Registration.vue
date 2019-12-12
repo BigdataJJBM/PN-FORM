@@ -4,13 +4,11 @@
       <template v-slot:activator="{ on }">
         <v-btn color="light-blue accent-4" class="mt-7" @click="update" dark v-on="on">Update</v-btn>
       </template>
-
                  <v-card class="my-4 mx-auto px-10 pb-10" max-width="70%" elevation="5">
                   <v-form ref="form" v-model="valid" :lazy-validation="lazy">
                     <center>
                       <v-card-title>Passerelles numeriques IT Training Program 2020</v-card-title>
                     </center>
-
                     <center>
                       <v-card-subtitle class="pb-0">Application Form</v-card-subtitle>
                     </center>
@@ -296,7 +294,6 @@ export default {
     note: "",
 
     currentDate: new Date().toISOString().substr(0, 10),
-    // modal: false,
     checkbox: false,
     lazy: false,
     dataHours: [],
@@ -330,12 +327,10 @@ export default {
     onlyNumber($event) {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {
-        // 46 is dot
         $event.preventDefault();
       }
     },
     onlyLetter($event) {
-      // let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if (
         (event.charCode > 64 && event.charCode < 91) ||
         (event.charCode > 96 && event.charCode < 123)

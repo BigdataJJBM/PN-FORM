@@ -3,13 +3,13 @@ import VueRouter from 'vue-router'
 import Admin from '../views/Admin.vue'
 import Login from '../views/Login.vue'
 import Pass from '../views/StudentPass.vue'
-import Fail from '../views/ApplicantFail.vue'
 import store from "../store"
 import AccountSettings from '../components/AccountSetting.vue';
 import Gender from '../components/GenderStatistics.vue';
 import ApplicantPage from "../views/ApplicantPage.vue"
-import Municipality from "../components/MunicipalityStatistics.vue"
 import Stat from "../views/Stat.vue"
+import Year from "../views/Year.vue"
+import SI from "../views/ForSI.vue"
 Vue.use(VueRouter)
 
 
@@ -50,9 +50,9 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/fail',
-            name: 'Fail',
-            component: Fail,
+            path: '/year',
+            name: 'Year',
+            component: Year,
             beforeEnter: (to, from, next) => {
                 if (store.state.authenticated == false) {
                     next("/login");
@@ -62,9 +62,9 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/municipality',
-            name: 'Municipality',
-            component: Municipality,
+            path: '/socialInvestigation',
+            name: 'SI',
+            component: SI,
             beforeEnter: (to, from, next) => {
                 if (store.state.authenticated == false) {
                     next("/login");

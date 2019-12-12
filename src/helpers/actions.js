@@ -13,6 +13,15 @@ export function getApplicantDone() {
     return axios.get(`${BASE_URL}/api/applicant/getDone`)
         .then(response => response.data)
 }
+
+export function getApplicantBatch() {
+    return axios.get(`${BASE_URL}/api/applicant/byYear`)
+        .then(response => response.data)
+}
+export function getApplicantForSocialInvestigation() {
+    return axios.get(`${BASE_URL}/api/applicant/getSocialInvestigation`)
+        .then(response => response.data)
+}
 export function getApplicantStat() {
     return axios.get(`${BASE_URL}/api/applicant/byStat`)
         .then(response => response.data)

@@ -76,17 +76,19 @@ export default {
         title: "List of Passers",
         link: "/students"
       },
-       {
+      {
         icon: "mdi-account-multiple",
-        title: "Fail",
-        link: "/fail"
+        title: "SI",
+        link: "/socialInvestigation"
       },
-      { icon: "mdi-chart-arc", title: "Municipality", link: "/municipality" },
       { icon: "mdi-chart-arc", title: "Gender", link: "/gender" },
-      { icon: "mdi-settings", title: "Settings", link: "/account-settings" },
-      { icon: "mdi-settings", title: "Stat", link: "/stat" }
+     
+      { icon: "mdi-chart-bar", title: "Stat", link: "/stat" },
+       { icon: "mdi-chart-bar", title: "Year", link: "/year" },
+        { icon: "mdi-settings", title: "Settings", link: "/account-settings" }
     ]
   }),
+  
 
   watch: {
     group() {

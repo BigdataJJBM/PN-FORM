@@ -27,10 +27,120 @@ app.use(cors());
 
 // Applicant
 app.get('/api/applicant/list', (req, res) => {
+    Applicant.find({ status: {$nin: ["Fail","For Social Investigation"]}}).exec((err, data) => {
+        if (err) return res.status(404).send('Error while getting list of applicant!');
+        return res.send({ data })
+    })
+})
+
+app.get('/api/applicant/getSocialInvestigation', (req, res) => {
+    Applicant.find({ status: "For Social Investigation" }).exec((err, data) => {
+        if (err) return res.status(404).send('Error while getting list of applicant for Social Investigation!');
+        return res.send({ data })
+    })
+})
+app.get('/api/applicant/byStat',(req,res)=>{
+    Applicant.aggregate([
+            {$unwind: "$address"},
+            { "$match": { "batch":2019}},
+            {
+                $group: {
+                    "_id": {
+                        "municipality": "$address.municipality", 
+                        "status": "$status"
+                    },
+                    count: {
+                        $sum: 1
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id.municipality",
+                    reports: {
+                        $push: {
+                            status: "$_id.status",
+                            count: "$count"
+                     
+                        }
+                    },
+                }
+            },
+            {
+                $project: {
+                    municipality: "$_id",
+                    reports: 1,
+                    _id: 0
+    
+                }
+            },
+            { $sort: { total: -1 } }
+    
+    
+        ], function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+    
+                res.json(result);
+            }
+        });
+    
+})
+
+
+app.get('/api/applicant/list', (req, res) => {
     Applicant.find({ status: {$nin:"Fail"}}).exec((err, data) => {
         if (err) return res.status(404).send('Error while getting list of applicant!');
         return res.send({ data })
     })
+})
+
+
+app.get('/api/applicant/byYear',(req,res)=>{
+    Applicant.aggregate([
+            {
+                $group: {
+                    "_id": {
+                        "batch": "$batch", 
+                        "status": "$status"
+                    },
+                    count: {
+                        $sum: 1
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id.batch",
+                    reports: {
+                        $push: {
+                            status: "$_id.status",
+                            count: "$count"
+                        }
+                    },
+                }
+            },
+            {
+                $project: {
+                    batch: "$_id",
+                    reports: 1,
+                    _id: 0
+    
+                }
+            },
+            { $sort: { total: -1 } }
+    
+    
+        ], function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+    
+                res.json(result);
+            }
+        });
+    
 })
 app.get('/api/applicant/byStat',(req,res)=>{
     Applicant.aggregate([
@@ -200,7 +310,7 @@ app.post('/api/applicant/create', (req, res) => {
             motherIncome: req.body.familyBackground.motherIncome,
             familySituation: req.body.familyBackground.familySituation,
         },
-       batch : 2017,
+       batch : 2019,
         reason: req.body.reason,
         note: req.body.note,
         status: req.body.status,

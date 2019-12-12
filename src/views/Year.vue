@@ -1,13 +1,16 @@
 <template>
   <div>
-      <v-card class="ma-12 mb-12 pa-12">
+       <v-card class="ma-12 mb-21 pa-9">
        <v-card-title  class="display-1">
       Percentage Passers, On Process and Failed in this Year
   </v-card-title>
-    <apexchart class="ma-13 mb-21 pa-12" width="500" type="bar" :options="options" :series="series"></apexchart>
-     </v-card>
-  </div>
+  <div id="chart">
+    
+    <apexchart  class="justify-center" width="600" type="bar" :options="options" :series="series"></apexchart>
  
+    </div>
+       </v-card>
+  </div>
 </template>
 <script>
 import Vue from "vue";
@@ -15,7 +18,7 @@ import VueApexCharts from "vue-apexcharts";
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);
 
-import { getApplicantStat } from "../helpers/actions";
+import { getApplicantBatch } from "../helpers/actions";
 export default {
   props: {},
   data: function() {
@@ -23,6 +26,7 @@ export default {
       options: {
         chart: {
           id: "vuechart-example"
+          
         },
         xaxis: {
           categories: []
@@ -51,7 +55,7 @@ export default {
       });
     },
     retriveStat() {
-      getApplicantStat()
+      getApplicantBatch()
         .then(data => {
           this.options = data.data;
           console.log(data.data);
@@ -60,15 +64,17 @@ export default {
     }
   },
   mounted() {
-    getApplicantStat()
+    getApplicantBatch()
       .then(data => {
-        console.log(data);
+        // console.log(data);
         data.forEach(element => {
-          this.options.xaxis.categories.push(element.municipality);
+          this.options.xaxis.categories.push(element.batch);
+          console.log(element);
           var pass=0;
           var fail=0
           var pending=0;
-          for (var counter = 0; counter < element.reports.length; counter++) {   
+          for (var counter = 0; counter < element.reports.length; counter++) {  
+               console.log(element.reports[counter].status); 
               var count =  element.reports[counter].count;    
             if (element.reports[counter].status == "Pass") {
                 pass+=count;
@@ -79,27 +85,16 @@ export default {
             }
             
           }
-           console.log(pass)
             this.series[0].data.push(pass); 
             this.series[1].data.push(fail);
             this.series[2].data.push(pending);
-
-          //    this.series[0].data.push(element.reports.count);
-          // //    this.series[1].data.push(data[0][key]);
         });
-        // console.log(JSON.stringify(data[0]));
-        // for (var key in data[0]) {
-        //   if (data[0].hasOwnProperty(key)) {
-        //     console.log("this is the key " + key);
-        //     this.options.xaxis.categories.push(key);
-        //     this.series[0].data.push(data[0][key]);
-        //     this.series[1].data.push(data[0][key]);
-        //   }
-        // }
+
       })
       .catch(err => alert(err));
   }
 };
 </script>
 <style>
+
 </style>
