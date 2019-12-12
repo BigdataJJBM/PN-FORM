@@ -19,7 +19,6 @@ const ApplicantSchema = Schema(
         seniorhighSchoolBackground: {
             school: { type: String, required: true },
             specialization: { type: String, required: true },
-
         },
         familyBackground: {
             fatherName: { type: String, required: true },
@@ -28,6 +27,7 @@ const ApplicantSchema = Schema(
             motherIncome: { type: Number, required: true },
             familySituation: { type: String, required: true },
         },
+        batch : {type : Number, required : true},
         note: { type: String, required: true },
         status: { type: String, required: true },
         action: { type: String, required: true },

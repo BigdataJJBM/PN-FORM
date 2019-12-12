@@ -13,6 +13,10 @@ export function getApplicantDone() {
     return axios.get(`${BASE_URL}/api/applicant/getDone`)
         .then(response => response.data)
 }
+export function getApplicantStat() {
+    return axios.get(`${BASE_URL}/api/applicant/byStat`)
+        .then(response => response.data)
+}
 
 export function getApplicantPending() {
     return axios.get(`${BASE_URL}/api/applicant/getPending`)

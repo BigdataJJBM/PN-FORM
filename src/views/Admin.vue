@@ -67,6 +67,7 @@
               <v-list-item-title>First Name: {{firstname}}</v-list-item-title>
               <v-list-item-title>Middle Name: {{middlename}}</v-list-item-title>
               <v-list-item-title>Last Name: {{lastname}}</v-list-item-title>
+              <v-list-item-title>Year Applied: {{batch}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item two-line>
@@ -174,6 +175,7 @@ export default {
       familySituation: "",
       email: "",
       note: "",
+      batch:"",
       checked: false,
       expanded: [],
       applicants: [],
@@ -240,6 +242,7 @@ export default {
       this.motherIncome = item.familyBackground.motherIncome;
       this.familySituation = item.familyBackground.familySituation;
       this.gender = item.gender;
+       this.batch = item.batch;
       this.contact = item.contact;
       this.note = item.note;
     },

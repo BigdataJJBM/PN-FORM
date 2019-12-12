@@ -27,11 +27,78 @@ app.use(cors());
 
 // Applicant
 app.get('/api/applicant/list', (req, res) => {
-    Applicant.find({ status: { $nin: ["Fail", "Pass"]} }).exec((err, data) => {
+    Applicant.find({ status: {$nin:"Fail"}}).exec((err, data) => {
         if (err) return res.status(404).send('Error while getting list of applicant!');
         return res.send({ data })
     })
 })
+app.get('/api/applicant/byStat',(req,res)=>{
+    Applicant.aggregate([
+            {$unwind: "$address"},
+            // { "$match": { "status":"Pass"}},
+            {
+                $group: {
+                    "_id": {
+                        "municipality": "$address.municipality", 
+                        "status": "$status"
+                    },
+                    count: {
+                        $sum: 1
+                    }
+                }
+            },
+            // { "$sort": { "_id": 1 } },
+            // {  "$group": {
+            //     "_id": null,
+            //     "counts": {
+            //         "$push": {
+            //             "k": "$_id",
+            //             "v": "$count"
+            //         }
+            //     }
+            // } },
+            // { "$replaceRoot": {
+            //     "newRoot": { "$arrayToObject": "$counts" }
+            // } }  
+            {
+                $group: {
+                    _id: "$_id.municipality",
+                    reports: {
+                        $push: {
+                            status: "$_id.status",
+                            count: "$count"
+                            // month: "$_MONTH"
+                        }
+                    },
+                    // total: {
+                    //     $sum: { $sum: "$count" }
+                    // }
+                }
+            },
+            {
+                $project: {
+                    municipality: "$_id",
+                    reports: 1,
+                    // total: 1,
+                    _id: 0
+    
+                }
+            },
+            { $sort: { total: -1 } }
+    
+    
+        ], function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+    
+                res.json(result);
+            }
+        });
+    
+})
+
+
 app.get('/api/applicant/byLocation',(req,res)=>{
     
     Applicant.aggregate([
@@ -133,7 +200,7 @@ app.post('/api/applicant/create', (req, res) => {
             motherIncome: req.body.familyBackground.motherIncome,
             familySituation: req.body.familyBackground.familySituation,
         },
-       
+       batch : 2017,
         reason: req.body.reason,
         note: req.body.note,
         status: req.body.status,

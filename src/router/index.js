@@ -9,6 +9,7 @@ import AccountSettings from '../components/AccountSetting.vue';
 import Gender from '../components/GenderStatistics.vue';
 import ApplicantPage from "../views/ApplicantPage.vue"
 import Municipality from "../components/MunicipalityStatistics.vue"
+import Stat from "../views/Stat.vue"
 Vue.use(VueRouter)
 
 
@@ -64,6 +65,18 @@ const router = new VueRouter({
             path: '/municipality',
             name: 'Municipality',
             component: Municipality,
+            beforeEnter: (to, from, next) => {
+                if (store.state.authenticated == false) {
+                    next("/login");
+                } else {
+                    next();
+                }
+            }
+        },
+        {
+            path: '/stat',
+            name: 'Stat',
+            component: Stat,
             beforeEnter: (to, from, next) => {
                 if (store.state.authenticated == false) {
                     next("/login");

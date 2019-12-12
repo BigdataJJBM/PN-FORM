@@ -83,7 +83,8 @@ export default {
       },
       { icon: "mdi-chart-arc", title: "Municipality", link: "/municipality" },
       { icon: "mdi-chart-arc", title: "Gender", link: "/gender" },
-      { icon: "mdi-settings", title: "Settings", link: "/account-settings" }
+      { icon: "mdi-settings", title: "Settings", link: "/account-settings" },
+      { icon: "mdi-settings", title: "Stat", link: "/stat" }
     ]
   }),
 
