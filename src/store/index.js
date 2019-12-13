@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         authenticated: isNull(sessionStorage.getItem("authenticated")) ? false : true,
         user: localStorage.getItem('user') || '',
-        applicant : localStorage.getItem('applicant') || ''
+        applicant: localStorage.getItem('applicant') || ''
     },
     mutations: {
         setAuthentication(state, status) {

@@ -126,7 +126,7 @@
         "email": "hou@gmail.com",
         "contact": 9287343306,
         "age": 19,
-        "gender": "female",
+        "gender": "Female",
         "birthdate":"1998-12-10",
         "address": {
             "province": "Leyte",
@@ -156,7 +156,7 @@
         "email": "hou@gmail.com",
         "contact": 9287343306,
         "age": 19,
-        "gender": "female",
+        "gender": "Female",
         "birthdate":"1998-12-10",
         "address": {
             "province": "Leyte",
@@ -186,7 +186,7 @@
         "email": "che@gmail.com",
         "contact": 9287347706,
         "age": 18,
-        "gender": "female",
+        "gender": "Female",
         "birthdate":"1998-10-26",
         "address": {
             "province": "Leyte",
@@ -216,7 +216,7 @@
         "email": "gie@gmail.com",
         "contact": 9299343306,
         "age": 19,
-        "gender": "female",
+        "gender": "Female",
         "birthdate":"1998-12-10",
         "address": {
             "province": "Cebu",
@@ -635,7 +635,7 @@
         "email": "Johonyy@gmail.com",
         "contact": 9287343306,
         "age": 19,
-        "gender": "female",
+        "gender": "Female",
         "birthdate":"1998-12-10",
         "address": {
             "province": "Leyte",

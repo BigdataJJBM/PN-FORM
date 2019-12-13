@@ -10,9 +10,9 @@
     <template v-slot:top>
       <v-toolbar flat class="ma-5 mb-12 pa-5">
         <v-spacer></v-spacer>
-        <v-toolbar-title class="text-center display-2">Student Candidates</v-toolbar-title>
-        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+        <v-toolbar-title class="text-center display-2">Student Candidates:{{list.length}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       </v-toolbar>
     </template>
     <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
@@ -27,7 +27,7 @@
       <v-btn
         x-small
         color="warning"
-          :disabled="item.status == 'Fail'"
+        :disabled="item.status == 'Fail'"
         dark
         @click="actionBtn1(item)"
       >Fail</v-btn>
@@ -120,13 +120,10 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-          
-              
-             <RegisterForm/>
+
+            <RegisterForm />
             <v-btn color="blue darken-1" @click="dialog=false, reloadPage()">close</v-btn>
-            
           </v-card-actions>
- 
         </v-card>
       </v-dialog>
     </template>
@@ -143,17 +140,16 @@ import {
   updateApplicant
 } from "../helpers/actions";
 
-import RegisterForm from "../components/Registration"
+import RegisterForm from "../components/Registration";
 import Swal from "sweetalert2";
 
 export default {
   name: "Dashboard",
-  components :  {
+  components: {
     RegisterForm
   },
   data() {
     return {
-     
       status: "On Queue",
       search: "",
       firstname: "",
@@ -175,7 +171,7 @@ export default {
       familySituation: "",
       email: "",
       note: "",
-      batch:"",
+      batch: "",
       checked: false,
       expanded: [],
       applicants: [],
@@ -218,12 +214,12 @@ export default {
         }
       });
     },
-    reloadPage(){
-    window.location.reload()
-  },
+    reloadPage() {
+      window.location.reload();
+    },
     details(item) {
       console.log(item);
-      localStorage.setItem('applicant', JSON.stringify(item))
+      localStorage.setItem("applicant", JSON.stringify(item));
       this.firstname = item.firstname;
       this.lastname = item.lastname;
       this.middlename = item.middlename;
@@ -242,7 +238,7 @@ export default {
       this.motherIncome = item.familyBackground.motherIncome;
       this.familySituation = item.familyBackground.familySituation;
       this.gender = item.gender;
-       this.batch = item.batch;
+      this.batch = item.batch;
       this.contact = item.contact;
       this.note = item.note;
     },
@@ -276,8 +272,8 @@ export default {
         item.status = "For Social Investigation";
       } else if (item.status == "For Social Investigation") {
         item.action = "Pass";
-         item.status = "Pass";
-      } 
+        item.status = "Pass";
+      }
       if (item.status == "Pass") {
         console.log(this.list);
         setTimeout(() => {
@@ -285,10 +281,9 @@ export default {
         }, 2000);
       }
       const data = {
-       
         check: applicant.check,
         action: applicant.action,
-        status: applicant.status,
+        status: applicant.status
       };
       updateApplicant(data, applicant._id)
         .then(data => {
@@ -298,21 +293,20 @@ export default {
         })
         .catch(err => alert(err.error));
     },
-      actionBtn1(item) {
+    actionBtn1(item) {
       console.log(item);
       const index = this.applicants.indexOf(item);
       const applicant = this.applicants[index];
       item.status = "Fail";
-       if (item.status == "Fail") {
+      if (item.status == "Fail") {
         console.log(this.list);
         setTimeout(() => {
           this.list.splice(this.list.indexOf(item), 1);
         }, 2000);
       }
       const data = {
-       
         check: applicant.check,
-        status: applicant.status,
+        status: applicant.status
       };
       updateApplicant(data, applicant._id)
         .then(data => {
@@ -321,7 +315,7 @@ export default {
         })
         .catch(err => alert(err.error));
     },
-    
+
     alertDelete(item) {
       Swal.fire({
         title: "Are you sure?",

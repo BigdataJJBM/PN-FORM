@@ -2,6 +2,7 @@
   <v-card class="ma-5 mb-12 pa-5">
     <v-card-title class="display-2">
       List of Passers
+      <v-list>:{{applicants.length}}</v-list>
       <v-spacer></v-spacer>
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
     </v-card-title>
@@ -45,7 +46,7 @@ export default {
           sortable: false
         }
       ],
-    applicants: []
+      applicants: []
     };
   },
   methods: {
@@ -63,7 +64,7 @@ export default {
         .then(data => ((this.applicants = data.data), console.log(data.data)))
         .catch(err => alert(err));
     },
-      alertDelete(item) {
+    alertDelete(item) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -88,7 +89,7 @@ export default {
     }
   },
   mounted() {
-   getApplicantDone()
+    getApplicantDone()
       .then(data => ((this.applicants = data.data), console.log(data.data)))
       .catch(err => alert(err));
   }

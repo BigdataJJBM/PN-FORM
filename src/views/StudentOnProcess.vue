@@ -45,7 +45,7 @@ export default {
           sortable: false
         }
       ],
-    applicants: []
+      applicants: []
     };
   },
   methods: {
@@ -63,7 +63,7 @@ export default {
         .then(data => ((this.applicants = data.data), console.log(data.data)))
         .catch(err => alert(err));
     },
-      alertDelete(item) {
+    alertDelete(item) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -88,7 +88,7 @@ export default {
     }
   },
   mounted() {
-   getApplicantPending()
+    getApplicantPending()
       .then(data => ((this.applicants = data.data), console.log(data.data)))
       .catch(err => alert(err));
   }

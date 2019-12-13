@@ -336,13 +336,13 @@ export default {
     province: "",
     municipality: "",
     barangay: "",
-    school:"",
-    specialization:"",
-    fatherName:"",
-    fatherIncome:"",
-    motherName:"",
-    motherIncome:"",
-    familySituation:"",
+    school: "",
+    specialization: "",
+    fatherName: "",
+    fatherIncome: "",
+    motherName: "",
+    motherIncome: "",
+    familySituation: "",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 50) || "Name must be less than 50 characters"
@@ -387,8 +387,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.disableSubmit = true;
         this.submitRequest();
-        this.firstname = this.middlename = this.lastname = this.contact = this.email = this.note  = this.gender = this.age = this.municipality= this.province = this.barangay = this.school=this.specialization=this.fatherName=
-        this.fatherIncome=this.motherName=this.motherIncome=this.familySituation= null;
+        this.firstname = this.middlename = this.lastname = this.contact = this.email = this.note = this.gender = this.age = this.municipality = this.province = this.barangay = this.school = this.specialization = this.fatherName = this.fatherIncome = this.motherName = this.motherIncome = this.familySituation = null;
         this.checkbox = false;
         this.snackbar = true;
         this.$refs.form.reset();
@@ -411,7 +410,7 @@ export default {
           this.lastname.slice(1).toLowerCase(),
         email: this.email,
         contact: this.contact,
-        birthdate:this.date,
+        birthdate: this.date,
         age: this.age,
         gender: this.gender,
         address: {
@@ -423,16 +422,16 @@ export default {
             this.barangay.charAt(0).toUpperCase() +
             this.barangay.slice(1).toLowerCase()
         },
-        seniorhighSchoolBackground:{
-          school:this.school,
-          specialization:this.specialization,
+        seniorhighSchoolBackground: {
+          school: this.school,
+          specialization: this.specialization
         },
-        familyBackground:{
-          fatherName:this.fatherName,
-          fatherIncome:this.fatherIncome,
-          motherName:this.motherName,
-          motherIncome:this.motherIncome,
-          familySituation:this.familySituation,
+        familyBackground: {
+          fatherName: this.fatherName,
+          fatherIncome: this.fatherIncome,
+          motherName: this.motherName,
+          motherIncome: this.motherIncome,
+          familySituation: this.familySituation
         },
         note: this.note,
         status: this.status,

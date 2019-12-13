@@ -1,16 +1,8 @@
 <template>
   <span>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-    >
-    </v-navigation-drawer>
+    <v-navigation-drawer v-model="drawer" app></v-navigation-drawer>
 
-    <v-app-bar
-      app
-      color="blue darken-1"
-      dark
-    >
+    <v-app-bar app color="blue darken-1" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
@@ -82,13 +74,12 @@ export default {
         link: "/socialInvestigation"
       },
       { icon: "mdi-chart-arc", title: "Gender", link: "/gender" },
-     
+
       { icon: "mdi-chart-bar", title: "Stat", link: "/stat" },
-       { icon: "mdi-chart-bar", title: "Year", link: "/year" },
-        { icon: "mdi-settings", title: "Settings", link: "/account-settings" }
+      { icon: "mdi-chart-bar", title: "Year", link: "/year" },
+      { icon: "mdi-settings", title: "Settings", link: "/account-settings" }
     ]
   }),
-  
 
   watch: {
     group() {

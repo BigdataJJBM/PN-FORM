@@ -145,7 +145,6 @@ app.get('/api/applicant/byYear',(req,res)=>{
 app.get('/api/applicant/byStat',(req,res)=>{
     Applicant.aggregate([
             {$unwind: "$address"},
-            // { "$match": { "status":"Pass"}},
             {
                 $group: {
                     "_id": {
@@ -157,19 +156,6 @@ app.get('/api/applicant/byStat',(req,res)=>{
                     }
                 }
             },
-            // { "$sort": { "_id": 1 } },
-            // {  "$group": {
-            //     "_id": null,
-            //     "counts": {
-            //         "$push": {
-            //             "k": "$_id",
-            //             "v": "$count"
-            //         }
-            //     }
-            // } },
-            // { "$replaceRoot": {
-            //     "newRoot": { "$arrayToObject": "$counts" }
-            // } }  
             {
                 $group: {
                     _id: "$_id.municipality",
@@ -177,19 +163,14 @@ app.get('/api/applicant/byStat',(req,res)=>{
                         $push: {
                             status: "$_id.status",
                             count: "$count"
-                            // month: "$_MONTH"
                         }
                     },
-                    // total: {
-                    //     $sum: { $sum: "$count" }
-                    // }
                 }
             },
             {
                 $project: {
                     municipality: "$_id",
                     reports: 1,
-                    // total: 1,
                     _id: 0
     
                 }

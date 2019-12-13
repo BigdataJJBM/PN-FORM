@@ -1,13 +1,16 @@
 <template>
   <div>
-      <v-card class="ma-12 mb-12 pa-12">
-       <v-card-title  class="display-1">
-      Percentage Passers, On Process and Failed in this Year
-  </v-card-title>
-    <apexchart class="ma-13 mb-21 pa-12" width="500" type="bar" :options="options" :series="series"></apexchart>
-     </v-card>
+    <v-card class="ma-12 mb-12 pa-12">
+      <v-card-title class="display-1">Percentage Passers, On Process and Failed in this Year</v-card-title>
+      <apexchart
+        class="ma-13 mb-21 pa-12"
+        width="500"
+        type="bar"
+        :options="options"
+        :series="series"
+      ></apexchart>
+    </v-card>
   </div>
- 
 </template>
 <script>
 import Vue from "vue";
@@ -65,24 +68,23 @@ export default {
         console.log(data);
         data.forEach(element => {
           this.options.xaxis.categories.push(element.municipality);
-          var pass=0;
-          var fail=0
-          var pending=0;
-          for (var counter = 0; counter < element.reports.length; counter++) {   
-              var count =  element.reports[counter].count;    
+          var pass = 0;
+          var fail = 0;
+          var pending = 0;
+          for (var counter = 0; counter < element.reports.length; counter++) {
+            var count = element.reports[counter].count;
             if (element.reports[counter].status == "Pass") {
-                pass+=count;
+              pass += count;
             } else if (element.reports[counter].status == "Fail") {
-                fail+=count;
-            } else{
-                pending+=count;
+              fail += count;
+            } else {
+              pending += count;
             }
-            
           }
-           console.log(pass)
-            this.series[0].data.push(pass); 
-            this.series[1].data.push(fail);
-            this.series[2].data.push(pending);
+          console.log(pass);
+          this.series[0].data.push(pass);
+          this.series[1].data.push(fail);
+          this.series[2].data.push(pending);
 
           //    this.series[0].data.push(element.reports.count);
           // //    this.series[1].data.push(data[0][key]);

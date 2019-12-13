@@ -1,11 +1,11 @@
 <template>
   <v-card class="ma-5 mb-12 pa-5">
     <v-card-title class="display-2">
-      Social Investigation<v-list>:{{applicants.length}}</v-list>
+      Social Investigation
+      <v-list>:{{applicants.length}}</v-list>
       <v-spacer></v-spacer>
 
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-      
     </v-card-title>
     <v-data-table :headers="headers" :items="applicants" :search="search">
       <template v-slot:item.action="{ item }">
@@ -19,15 +19,14 @@
 import Swal from "sweetalert2";
 import {
   getApplicantForSocialInvestigation,
-  deleteApplicant,
-  
+  deleteApplicant
 } from "../helpers/actions";
 export default {
   name: "SI",
   data() {
     return {
       search: "",
-      count:"",
+      count: "",
       headers: [
         {
           text: "Firstname",
